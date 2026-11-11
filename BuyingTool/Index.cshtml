@@ -7,7 +7,7 @@
     Layout = null;
 
     // Handle Logout action if posted back
-    if (IsPost && Request["actionButton"] == "Logout")
+    if (IsPost && Request.Form["actionButton"] == "Logout")
     {
         string userId = Session["idnumber"] as string;
         if (!string.IsNullOrEmpty(userId))
@@ -35,7 +35,7 @@
     // Handle Login postback if not logged in
     if (!isLoggedIn && IsPost)
     {
-        string action = Request["actionButton"];
+        string action = Request.Form["actionButton"];
         string idnumber = Request.Form["idnumber"];
         string pass = Request.Form["password"];
 
@@ -62,7 +62,6 @@
                 {
                     // Save session and reload Index to transition to Main.cshtml
                     Session["idnumber"] = idnumber;
-                    Session["password"] = pass;
                     Response.Redirect("~/Index.cshtml");
                     return;
                 }
@@ -72,22 +71,31 @@
                 errorMessage = "Invalid ID Number or Password.";
             }
         }
+
     }
 
     bool isCalculated = Session["IsCalculated"] != null && (bool)Session["IsCalculated"];
 
-    isLoggedIn = Session["idnumber"] != null && !string.IsNullOrWhiteSpace(Session["idnumber"].ToString());
+    isLoggedIn = Session["idnumber"] != null &&
+             !string.IsNullOrWhiteSpace(Session["idnumber"].ToString());
 }
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.2/font/bootstrap-icons.min.css">
 <script src="~/Pages/Scripts/JQuery4.js"></script>
 <script src="~/Pages/Scripts/Index.js"></script>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>@(isLoggedIn ? "Dashboard" : "Login - Buying Tool Report")</title>
+
+    @if (!isLoggedIn)
+    {
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+        <link href="~/Pages/Style/login.css" rel="stylesheet" />
+    }
 </head>
 <body>
     <div id="loaderOverlay">
@@ -96,41 +104,93 @@
     @if (!isLoggedIn)
     {
         // --- VIEW 1: LOGIN SCREEN ---
-        var loginCss = System.IO.File
-            .GetLastWriteTime(Server.MapPath("~/Pages/Style/login.css"))
-            .Ticks.ToString();
+        <main class="login-shell" role="main">
 
-        <link href="~/Pages/Style/login.css?v=@loginCss" rel="stylesheet" />
+            <section class="login-brand-panel" aria-label="Company values">
 
-        <main class="content-wrapper" role="main">
+                <div class="brand-content">
 
-            <section class="tab-pane login-pane" aria-label="Main Login">
+                    <div class="fast-brand" aria-label="We act F.A.S.T.">
+                        <p class="fast-expansion">RETAIL PLANNING WORKSPACE</p>
+                    </div>
 
-                <div class="login-header-group">
-                    <h1 class="page-title">Buy and Allocation Report</h1>
-                    <h2 class="login-sub-title">LOGIN</h2>
+                    <div class="values-list">
+
+                        <article class="value-item">
+                            <h2>Plan smarter.</h2>
+                        </article>
+                        <br />
+
+
+                        <article class="value-item">
+                            <h2>Allocate better.</h2>
+                        </article>
+                        <br />
+
+                    </div>
+
+                    <div>
+                        <article class="line-brand">
+                            <p>Use historical performance, product attributes, and store-level data to build the right assortment for every site.</p>
+                        </article>
+                    </div>
+
                 </div>
 
-                <div class="login-form-container">
-                    <form method="post" class="login-form">
-                        @if (!string.IsNullOrEmpty(errorMessage))
-                        {
-                            <div class="error-message" style="color: #ff4d4d; margin-bottom: 15px; font-weight: 500;">@errorMessage</div>
-                        }
-                        <div class="form-row-aligned">
-                            @RenderPage("~/Pages/Common/TextField.cshtml", "idnumber", "ID Number", "", "numeric")
-                        </div>
-                        <div class="form-row-aligned">
-                            @RenderPage("~/Pages/Common/PasswordField.cshtml", "password", "Password", "", "password")
-                        </div>
-                        <div class="form-actions">
-                            @RenderPage("~/Pages/Common/Button.cshtml", "Login", "submit", "actionButton", "Login")
-                        </div>
-                    </form>
-                </div>
+                <div class="brand-footer">Buying Tool Authorize Users Only</div>
 
             </section>
 
+            <section class="login-form-panel" aria-label="Account sign in">
+
+                <div class="login-card">
+                    <div class="login-heading">
+                        <h1>Welcome back</h1>
+                        <p>Enter your Buying Tool credentials to continue.</p>
+                    </div>
+                    <form method="post" class="login-form" id="loginForm" novalidate>
+                        @if (!string.IsNullOrEmpty(errorMessage))
+                        {
+                            <div class="alert alert-danger login-error" role="alert">
+                                <span class="error-icon" aria-hidden="true">!</span>
+                                <span>@errorMessage</span>
+                            </div>
+                        }
+                        <div class="mb-3 login-field">
+                            <label for="idnumber" class="form-label">User ID</label>
+                            <div class="input-with-icon">
+                                <span class="field-icon" aria-hidden="true">&#128100;</span>
+                                <input type="text" class="form-control" id="idnumber" name="idnumber"
+                                       placeholder="Enter your ID number" inputmode="numeric"
+                                       autocomplete="username" required />
+                            </div>
+                            <div class="invalid-feedback">Please enter your ID number.</div>
+                        </div>
+                        <div class="mb-2 login-field">
+                            <label for="password" class="form-label">Password</label>
+                            <div class="input-with-icon password-wrap">
+                                <span class="field-icon" aria-hidden="true">&#128274;</span>
+                                <input type="password" class="form-control" id="password" name="password"
+                                       placeholder="Enter your password" autocomplete="current-password" required />
+                                <button type="button" class="password-toggle" id="togglePassword"
+                                        aria-label="Show password" aria-pressed="false">
+                                    <span class="toggle-label">Show</span>
+                                </button>
+                            </div>
+                            <div class="invalid-feedback">Please enter your password.</div>
+                        </div>
+                        <input type="hidden" name="actionButton" value="Login" />
+                        <button type="submit" class="btn login-submit" id="loginButton">
+                            <span class="button-text">Sign in</span>
+                            <span class="button-spinner spinner-border spinner-border-sm" aria-hidden="true"></span>
+                            <span class="button-arrow" aria-hidden="true">&#8594;</span>
+                        </button>
+                    </form>
+
+                </div>
+                <div class="mobile-brand-footer">BUYING &amp; ALLOCATION REPORT</div>
+
+            </section>
         </main>
     }
     else
@@ -142,17 +202,19 @@
             activeTab = "Main";
         }
 
-        var tabbarCss = System.IO.File
-            .GetLastWriteTime(Server.MapPath("~/Pages/Style/tab-bar.css"))
+        var sidebarCss = System.IO.File
+            .GetLastWriteTime(Server.MapPath("~/Pages/Style/sidebar.css"))
             .Ticks.ToString();
 
         var indexCss = System.IO.File
             .GetLastWriteTime(Server.MapPath("~/Pages/Style/index.css"))
             .Ticks.ToString();
 
-        <link href="~/Pages/Style/tab-bar.css?v=@tabbarCss" rel="stylesheet" />
+        <link href="~/Pages/Style/sidebar.css?v=@sidebarCss" rel="stylesheet" />
         <link href="~/Pages/Style/index.css?v=@indexCss" rel="stylesheet" />
 
+        <!-- Render Sidebar Direct Component -->
+        @RenderPage("~/Pages/Component/SideBar.cshtml", activeTab)
         <header role="banner" class="dashboard-header">
             <div class="two-col">
                 <div class="col-left-side">
@@ -292,6 +354,15 @@
     <label hidden id="sessionSubCategory">@sessionSubCategory</label>
     <label hidden id="sessionSizeGroup">@sessionSizeGroup</label>
     <label hidden id="sessionOrigSrp">@sessionOrigSrp</label>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    @if (!isLoggedIn)
+    {
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="~/Pages/Scripts/login.js"></script>
+    }
+
+    <script src="~/Pages/Scripts/sidebar.js"></script>
 
 </body>
 </html>
