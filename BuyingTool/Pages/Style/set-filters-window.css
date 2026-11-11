@@ -3,17 +3,24 @@
    ================================================================= */
 :root {
     --bg-main: #e0e0e0;
-    --panel-bg: #ececec;
-    --panel-border: #888;
+    --panel-bg: #FFFFFF;
+    --panel-border: #929394;
     --header-bg-dark: #555555;
     --header-bg-teal: #2f5d5c;
     --text-dark: #222;
     --text-light: #fff;
+    --bg-main: #FFFFFF;
+    --text-dark: #222;
+    --main-dark: #0C4559;
+    --sub-dark: #0C4F60;
+    --tert-light: #0C909F;
+    --objects: #088696;
+    --subtext: #6B6C70;
+    --multiselect-border: #E7E8EC;
 }
 
 body {
     background-color: var(--bg-main);
-    font-family: Tahoma, Arial, sans-serif;
     font-size: 11px;
     color: var(--text-dark);
     margin: 0;
@@ -53,20 +60,20 @@ header {
     flex: 1;
     width: 700px;
     background-color: var(--panel-bg);
-    border: 1px solid var(--panel-border);
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.15);
-    padding: 8px;
+    border: 2px solid var(--panel-border);
+    padding: 12px;
+    border-radius:15px;
 }
 
 /* Right Main Options Gallery Panel - Expands to fill the remaining dashboard space */
 .gallery-panel {
     flex: 2;
     min-width: 0;
-    background-color: var(--panel-bg);
-    border: 1px solid var(--panel-border);
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.15);
-    padding: 8px;
     overflow-x: auto;
+    background-color: var(--panel-bg);
+    border: 2px solid var(--panel-border);
+    padding: 8px;
+    border-radius: 15px;
 }
 
 /* Responsive Table Scroll Container */
@@ -78,7 +85,10 @@ header {
 
 /* Reusable Filter Group Spacing */
 .filter-group {
-    margin: 15px 0 0 10px;
+    margin: 8px;
+    border-radius: 15px;
+    border: 2px solid var(--multiselect-border);
+    padding:12px;
 }
 
     /* Apply dark teal to inner filter group headers EXCEPT the first one ("Required Filters*") */
@@ -117,7 +127,7 @@ header {
 .filter-group > div {
     display: flex;
     align-items: center;
-    margin-bottom: 4px;
+    margin-top: 4px;
     contain: layout;
 }
 
@@ -142,14 +152,14 @@ header {
 .two-row {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 0px;
 }
 
 /* Allow the two inner columns inside the filter panel to sit side-by-side */
 .filter-panel .two-col {
     display: flex;
     flex-direction: row;
-    gap: 10px;
+    gap: 0px;
     width: 100%;
 }
 
@@ -157,11 +167,12 @@ header {
 .three-col {
     display: flex;
     flex-direction: row;
-    gap: 15px;
+    gap: 8px;
     justify-content: center;
     align-items: center;
     margin-top: 15px;
     margin-bottom: 5px;
+    width:100%;
 }
 
     /* Prevents the individual button columns from stretching wide, keeping them snug */
@@ -274,3 +285,5 @@ header {
     text-align: left !important;
     padding-left: 10px !important;
 }
+
+

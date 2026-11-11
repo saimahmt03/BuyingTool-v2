@@ -265,7 +265,6 @@
     <Content Include="Pages\Scripts\Index.js" />
     <Content Include="Global.asax" />
     <Content Include="Pages\Scripts\JQuery4.js" />
-    <Content Include="Pages\Scripts\login.js" />
     <Content Include="Pages\Scripts\modal.js" />
     <Content Include="Pages\Scripts\SetFilters.js" />
     <Content Include="Pages\Style\button.css" />
@@ -360,7 +359,9 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Pages\Style\Icons\" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
