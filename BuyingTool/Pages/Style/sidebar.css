@@ -1,0 +1,194 @@
+﻿/* =========================================================
+   SIDEBAR NAVIGATION - BUYING TOOL THEME
+   Matched strictly to reference images (Dark Slate Navy)
+   ========================================================= */
+
+
+/* Base Fixed Left Sidebar */
+.sidebar-wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: var(--sb-collapsed-w);
+    background: var(--sb-bg);
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    transition: width 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow: hidden;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+    /* Auto-hide / Expand on Hover OR Toggle click */
+    .sidebar-wrapper:hover,
+    .sidebar-wrapper.is-pinned {
+        width: var(--sb-expanded-w);
+    }
+
+/* Sidebar Top Header */
+.sidebar-top {
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 16px;
+    border-bottom: 2px solid var(--sb-divider);
+    white-space: nowrap;
+}
+
+.brand-text {
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
+.sidebar-wrapper:hover .brand-text,
+.sidebar-wrapper.is-pinned .brand-text {
+    opacity: 1;
+}
+
+.toggle-btn {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.toggle-circle {
+    width: 10px;
+    height: 10px;
+    border: 2px solid var(--sb-text);
+    border-radius: 50%;
+    transition: border-color 0.2s, background-color 0.2s;
+}
+
+.toggle-btn:hover .toggle-circle,
+.sidebar-wrapper.is-pinned .toggle-circle {
+    border-color: #ffffff;
+    background-color: #ffffff;
+}
+
+/* Navigation List */
+.sidebar-nav {
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.sidebar-menu {
+    list-style: none;
+    padding: 12px 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.sidebar-item {
+    width: 100%;
+}
+
+.logout-form {
+    margin: 0;
+    width: 100%;
+}
+
+/* Link item: Uniform padding and alignment when sidebar is collapsed */
+.sidebar-link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 48px;
+    padding: 0 8px;
+    color: var(--sb-text);
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 500;
+    white-space: nowrap;
+    background: transparent;
+    border: none;
+    width: 100%;
+    cursor: pointer;
+    transition: color 0.15s, background 0.15s;
+}
+
+/* When expanded on hover or pinned, space out label and icon properly */
+.sidebar-wrapper:hover .sidebar-link,
+.sidebar-wrapper.is-pinned .sidebar-link {
+    justify-content: space-between;
+    padding: 0 8px 0 20px;
+}
+
+.sidebar-link:hover {
+    color: var(--sb-text-hover);
+    background: rgba(255, 255, 255, 0.03);
+}
+
+.sidebar-label {
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
+.sidebar-wrapper:hover .sidebar-label,
+.sidebar-wrapper.is-pinned .sidebar-label {
+    opacity: 1;
+}
+
+/* Default Icon Box: Transparent to prevent unwanted dark/black blocks */
+.sidebar-icon-box {
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    color: var(--sb-text);
+    font-size: 13px;
+    font-weight: 700;
+    flex-shrink: 0;
+    border-radius: 4px;
+    transition: background 0.15s ease, color 0.15s ease;
+}
+
+/* Hover state for inactive links */
+.sidebar-link:hover .sidebar-icon-box {
+    background: rgba(255, 255, 255, 0.06);
+    color: var(--sb-text-hover);
+}
+
+/* ACTIVE HIGHLIGHT STATE: 
+   In collapsed view, icon text is highlighted white with NO background box. */
+.sidebar-link.active {
+    color: #ffffff;
+}
+
+    .sidebar-link.active .sidebar-icon-box {
+        background: transparent;
+        color: #ffffff;
+    }
+
+/* Show purple background box ONLY when sidebar is expanded (hovered or pinned) */
+.sidebar-wrapper:hover .sidebar-link.active .sidebar-icon-box,
+.sidebar-wrapper.is-pinned .sidebar-link.active .sidebar-icon-box {
+    background: var(--sb-active-purple) !important;
+    color: #ffffff !important;
+    border-radius: 4px !important;
+}
+
+/* Page Body Shift */
+body {
+    margin-left: var(--sb-collapsed-w);
+    transition: margin-left 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.content-wrapper {
+    padding: 24px;
+    min-height: 100vh;
+}

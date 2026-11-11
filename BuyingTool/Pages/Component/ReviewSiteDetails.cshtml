@@ -178,6 +178,9 @@
 
     var table1Css = System.IO.File.GetLastWriteTime(Server.MapPath("~/Pages/Style/table-with-pagination.css")).Ticks.ToString();
 }
+<header role="banner">
+    @RenderPage("~/Pages/Common/PageBanner.cshtml", "Step 3: Review Site Details")
+</header>
 <head>
     <link href="~/Pages/Style/header.css?v=@headerCss" rel="stylesheet" />
     <link href="~/Pages/Style/button.css?v=@buttonCss" rel="stylesheet" />
@@ -187,9 +190,6 @@
     <link href="~/Pages/Style/table-with-pagination.css?v=@table1Css" rel="stylesheet" />
 </head>
 <body>
-    <div>
-        @RenderPage("~/Pages/Common/Header.cshtml", "Step 3: Review Site Details")
-    </div>
 
     <main class="main-content-wrapper">
         <section class="export-container">
@@ -207,7 +207,7 @@
                             @RenderPage("~/Pages/Common/DropdownMultipleSelect.cshtml", "sizes", "Size", sizeList, selectedSizes, "", "100px")
                         </div>
                         <div class="col">
-                            @RenderPage("~/Pages/Common/Button.cshtml", "Apply", "submit", "actionButton", "Apply")
+                            <button class="button" type="submit" name="actionButton" value="Apply"><i class="bi bi-arrow-right-short"></i>Apply</button>
                         </div>
                         @if (!string.IsNullOrEmpty(dbResponse))
                         {
@@ -220,12 +220,12 @@
                         <input type="text"
                                name="customFileName"
                                id="customFileName"
-                               class="form-control"
+                               class="textfield"
                                placeholder="Enter filename..."
                                value="000000_colorname"
                                style="width: 200px; display: inline-block;" />
 
-                        @RenderPage("~/Pages/Common/Button.cshtml", "Download as Excel File", "submit", "actionButton", "Export")
+                        <button class="button" type="submit" name="actionButton" value="Export"><i class="bi bi-file-earmark-excel"></i>Download as Excel File</button>
                     </div>
                     @if (!string.IsNullOrEmpty(errorMessage))
                     {

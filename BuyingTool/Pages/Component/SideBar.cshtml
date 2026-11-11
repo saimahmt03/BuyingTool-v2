@@ -1,0 +1,61 @@
+﻿@{
+    // Text of the active tab, passed in from the calling page
+    var activeTab = PageData[0] as string;
+
+    var tabs = new[]
+    {
+        new { Text = "Main",                  Icon = "&#8962;", Short = "H" },
+        new { Text = "1. Set Filters",        Icon = "I",       Short = "I" },
+        new { Text = "2. Review Summary",     Icon = "LP",      Short = "LP" },
+        new { Text = "3. Review Site Details",Icon = "&#128092;", Short = "SD" },
+        new { Text = "4. Export",             Icon = "O",       Short = "O" },
+        new { Text = "Size Curve",            Icon = "&#9638;", Short = "SC" },
+        new { Text = "Monitoring",            Icon = "&#9881;", Short = "M" }
+    };
+}
+
+<aside class="sidebar-wrapper" id="sidebarWrapper">
+    <!-- Top Header inside Sidebar: Brand Name + Circle Toggle -->
+    <div class="sidebar-top">
+        <div class="brand-text">BUYING TOOL</div>
+        <button type="button" class="toggle-btn" id="sidebarToggle" aria-label="Toggle Navigation">
+            <span class="toggle-circle"></span>
+        </button>
+    </div>
+
+    <!-- Main Navigation List -->
+    <nav class="sidebar-nav">
+        <ul class="sidebar-menu">
+            @foreach (var tab in tabs)
+            {
+                var isActive = (tab.Text == activeTab);
+                var url = Href("~/") + "?tab=" + Uri.EscapeDataString(tab.Text);
+
+                <li class="sidebar-item">
+                    <a href="@url" class="sidebar-link @(isActive ? "active" : "")" aria-current="@(isActive ? "page" : null)">
+                        <span class="sidebar-label">@tab.Text</span>
+                        <span class="sidebar-icon-box">@Html.Raw(tab.Icon)</span>
+                    </a>
+                </li>
+            }
+
+            <!-- Change Password Link. Remove comment once this is ready to use.
+            <li class="sidebar-item">
+                <a href="#" class="sidebar-link">
+                    <span class="sidebar-label">Change Password</span>
+                    <span class="sidebar-icon-box">P</span>
+                </a>
+            </li> -->
+
+            <!-- Logout Link -->
+            <li class="sidebar-item">
+                <form method="post" class="logout-form">
+                    <button type="submit" name="actionButton" value="Logout" class="sidebar-link logout-btn">
+                        <span class="sidebar-label">Logout</span>
+                        <span class="sidebar-icon-box">&#9211;</span>
+                    </button>
+                </form>
+            </li>
+        </ul>
+    </nav>
+</aside>

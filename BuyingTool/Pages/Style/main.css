@@ -1,9 +1,5 @@
 ﻿/* Base Layout & Color Scheme */
-:root {
-    --primary-deep: #004862;
-    --primary-accent: #065275;
-    --text-color: #003344;
-}
+
 
 html, body {
     margin: 0;
@@ -14,7 +10,6 @@ html, body {
 }
 
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: var(--primary-deep);
     color: var(--text-color);
     display: flex;
