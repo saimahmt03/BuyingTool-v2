@@ -31,7 +31,7 @@
     white-space: nowrap;
     text-overflow: ellipsis;
     color: var(--main-dark);
-    font-size: 20px; /* CHANGED: 26px -> 24px, matches the image */
+    font-size: 18px; /* CHANGED: 26px -> 24px, matches the image */
     font-weight: bold;
     line-height: 1.2;
 }

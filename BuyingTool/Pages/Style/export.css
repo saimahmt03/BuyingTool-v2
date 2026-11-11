@@ -1,12 +1,6 @@
 ﻿/* =================================================================
    Export Page Styles (.NET Framework 4.7.2 / Razor v3)
    ================================================================= */
-:root {
-    --bg-main: #e0e0e0;
-    --panel-bg: #ececec;
-    --panel-border: #888;
-    --text-dark: #222;
-}
 
 body {
     background-color: white;

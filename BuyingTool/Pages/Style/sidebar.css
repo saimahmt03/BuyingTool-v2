@@ -3,15 +3,6 @@
    Matched strictly to reference images (Dark Slate Navy)
    ========================================================= */
 
-:root {
-    --sb-bg: #222630;
-    --sb-bg-dark: #1b1e27;
-    --sb-text: #8e95a5;
-    --sb-text-hover: #ffffff;
-    --sb-active-purple: #7160ad;
-    --sb-collapsed-w: 60px;
-    --sb-expanded-w: 240px;
-}
 
 /* Base Fixed Left Sidebar */
 .sidebar-wrapper {

@@ -2,16 +2,30 @@
    IndexLayout & Shell Styles (.NET Framework 4.7.2 / Razor v3)
    ================================================================= */
 :root {
-    --bg-main: #222630;
+    --bg-main: white;
     --text-dark: #222;
-    --main-dark: #1b1e27;
-    --main-light: #222630;
-    --sub-dark: #0C4F60;
-    --tert-light: #0C909F;
-    --objects: #088696;
+    --main-dark: #423763;
+    --main-light: #647496;
+    --sub-dark: #2C3352;
+    --tert-light: #5D77B8;
+    --objects: #185596;
     --subtext: #8e95a5;
-    --multiselect-border: #E7E8EC;
-    --hover: #E7E8EC;
+    --multiselect-border: #C9C9C9;
+    --hover: #8F77D6;
+    --hover-table-row: #C7C0E3;
+    --sb-bg: #222630;
+    --sb-bg-dark: #1b1e27;
+    --sb-text: #8e95a5;
+    --sb-text-hover: #ffffff;
+    --sb-active-purple: #7160ad;
+    --sb-collapsed-w: 60px;
+    --sb-expanded-w: 240px;
+    --panel-bg: white;
+    --panel-border: #888;
+    --text-dark: #222;
+    --primary-deep: #004862;
+    --primary-accent: #065275;
+    --text-color: #003344;
 }
 @font-face {
     font-family: Roboto; 
@@ -158,7 +172,7 @@ body {
 
 tr:hover {
     transition:all ease 0.3s;
-    background-color: var(--multiselect-border);
+    background-color: var(--hover-table-row);
 }
 
 .dropdown__label {

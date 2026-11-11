@@ -1,25 +1,7 @@
 ﻿/* =================================================================
     Set Filters & Layout Styles (.NET Framework 4.7.2 / Razor v3)
    ================================================================= */
-:root {
-    --bg-main: #ffffff;
-    --text-dark: #222;
-    --main-dark: #1b1e27;
-    --main-light: #222630;
-    --sub-dark: #0C4F60;
-    --tert-light: #0C909F;
-    --objects: #088696;
-    --subtext: #8e95a5;
-    --multiselect-border: #E7E8EC;
-    --hover: #E7E8EC;
-    --sb-bg: #222630;
-    --sb-bg-dark: #1b1e27;
-    --sb-text: #8e95a5;
-    --sb-text-hover: #ffffff;
-    --sb-active-purple: #7160ad;
-    --sb-collapsed-w: 60px;
-    --sb-expanded-w: 240px;
-}
+
 
 body {
     background-color: var(--bg-main);
@@ -289,3 +271,7 @@ header {
 }
 
 
+
+.dropdown__label {
+    font-size:8px;
+}

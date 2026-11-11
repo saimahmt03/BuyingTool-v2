@@ -56,7 +56,7 @@ tbody tr:nth-child(even) {
     background-color: #fafbfc;
 }
     tbody tr:nth-child(even):hover {
-        background-color: var(--multiselect-border);
+        background-color: var(--hover-table-row);
     }
 /* Highlighted Column (e.g., New QTY / V1 vertical block) */
 td.highlight-col, th.highlight-col {
