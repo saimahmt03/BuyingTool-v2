@@ -391,6 +391,9 @@
     var modalJsVersion = System.IO.File.GetLastWriteTime(Server.MapPath("~/Pages/Scripts/modal.js")).Ticks.ToString();
 }
 
+<header role="banner">
+    @RenderPage("~/Pages/Common/PageBanner.cshtml", "Step 1: Filters Window")
+</header>
 <head>
     <link href="~/Pages/Style/header.css?v=@headerCssVersion" rel="stylesheet" />
     <link href="~/Pages/Style/sectionheader.css?v=@sectionheaderCss" rel="stylesheet" />
@@ -405,9 +408,6 @@
     <script src="~/Pages/Scripts/modal.js?v=@modalJsVersion"></script>
 </head>
 <body>
-    <header role="banner">
-        @RenderPage("~/Pages/Common/Header.cshtml", "Step 1: Filters Window")
-    </header>
 
     <main class="main-content-wrapper" role="main">
         <section class="dashboard-container">
@@ -544,11 +544,11 @@
                                 </div>
 
                                 <!--
-                 if (!string.IsNullOrEmpty(errorMessage))
-                 {
-                    <div class="error-message" style="color: #ff4d4d; margin-bottom: 15px; font-weight: 500;">errorMessage</div>
-                 }
-                -->
+                                 if (!string.IsNullOrEmpty(errorMessage))
+                                 {
+                                    <div class="error-message" style="color: #ff4d4d; margin-bottom: 15px; font-weight: 500;">errorMessage</div>
+                                 }
+                                -->
                             </div>
                         </form>
                     </div>

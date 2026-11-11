@@ -269,6 +269,7 @@
     <Content Include="Pages\Scripts\modal.js" />
     <Content Include="Pages\Scripts\SetFilters.js" />
     <Content Include="Pages\Scripts\sidebar.js" />
+    <Content Include="Pages\Style\pagebanner.css" />
     <Content Include="Pages\Style\button.css" />
     <Content Include="Pages\Style\dropdown.css" />
     <Content Include="Pages\Style\dropdownmultipleselect.css" />
@@ -354,6 +355,7 @@
     <Content Include="Pages\Common\TableMaxAveMin.cshtml" />
     <Content Include="Pages\Common\TableWithPaginationOrderQtyIAQty.cshtml" />
     <Content Include="Pages\Component\SideBar.cshtml" />
+    <Content Include="Pages\Common\PageBanner.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

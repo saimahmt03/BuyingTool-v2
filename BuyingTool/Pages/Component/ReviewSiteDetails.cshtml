@@ -178,6 +178,9 @@
 
     var table1Css = System.IO.File.GetLastWriteTime(Server.MapPath("~/Pages/Style/table-with-pagination.css")).Ticks.ToString();
 }
+<header role="banner">
+    @RenderPage("~/Pages/Common/PageBanner.cshtml", "Step 3: Review Site Details")
+</header>
 <head>
     <link href="~/Pages/Style/header.css?v=@headerCss" rel="stylesheet" />
     <link href="~/Pages/Style/button.css?v=@buttonCss" rel="stylesheet" />
@@ -187,9 +190,6 @@
     <link href="~/Pages/Style/table-with-pagination.css?v=@table1Css" rel="stylesheet" />
 </head>
 <body>
-    <div>
-        @RenderPage("~/Pages/Common/Header.cshtml", "Step 3: Review Site Details")
-    </div>
 
     <main class="main-content-wrapper">
         <section class="export-container">

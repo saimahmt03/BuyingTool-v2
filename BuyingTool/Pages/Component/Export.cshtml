@@ -251,7 +251,9 @@
     // Add this with your other CSS ticks at the top of your .cshtml file:
     var modalJsVersion = System.IO.File.GetLastWriteTime(Server.MapPath("~/Pages/Scripts/modal.js")).Ticks.ToString();
 }
-
+<header role="banner">
+    @RenderPage("~/Pages/Common/PageBanner.cshtml", "Step 4: Export to Excel")
+</header>
 <head>
     <link href="~/Pages/Style/header.css?v=@headerCss" rel="stylesheet" />
     <link href="~/Pages/Style/button.css?v=@buttonCss" rel="stylesheet" />
@@ -263,9 +265,6 @@
     <script src="~/Pages/Scripts/modal.js?v=@modalJsVersion"></script>
 </head>
 <body>
-    <header role="banner">
-        @RenderPage("~/Pages/Common/Header.cshtml", "Step 4: Export to Excel")
-    </header>
 
     <main class="main-content-wrapper" role="main">
         <section class="export-container">

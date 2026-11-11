@@ -26,6 +26,7 @@
     --primary-deep: #004862;
     --primary-accent: #065275;
     --text-color: #003344;
+    --sb-divider: rgba(255, 255, 255, 0.05);
 }
 @font-face {
     font-family: Roboto; 
@@ -130,6 +131,7 @@ body {
     max-width: 1920px;
     margin: 0 auto;
     padding: 0;
+    padding-top:60px;
     flex: 1;
     display: flex;
     flex-direction: column;
@@ -147,6 +149,7 @@ body {
 @media (max-width: 768px) {
     .content-wrapper {
         padding: 5px;
+        padding-top: 60px;
     }
 }
 

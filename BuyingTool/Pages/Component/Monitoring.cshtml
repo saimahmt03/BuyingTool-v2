@@ -19,6 +19,9 @@
         label = "The System Couldn't Fetch Data from Database";
     }
 }
+<header role="banner">
+    @RenderPage("~/Pages/Common/PageBanner.cshtml", label)
+</header>
 <head>
     <link href="~/Pages/Style/header2.css?v=@headerCss" rel="stylesheet" />
     <link href="~/Pages/Style/table2.css?v=@tableCss" rel="stylesheet" />
@@ -26,9 +29,6 @@
 </head>
 <body>
     <main class="main-content-wrapper" role="main">
-        <header class="page-header" role="banner">
-            <h1 class="page-header__title">@label</h1>
-        </header>
         <section class="size-curve-container">
             <div class="size-curve-row">
                 <article class="panel-card" aria-label="Size Curve per Store Panel">

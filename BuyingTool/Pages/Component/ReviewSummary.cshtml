@@ -272,7 +272,9 @@
 
     var textfieldCss = System.IO.File.GetLastWriteTime(Server.MapPath("~/Pages/Style/textfield.css")).Ticks.ToString();
 }
-
+<header role="banner">
+    @RenderPage("~/Pages/Common/PageBanner.cshtml", "Step 2: Summary Distribution")
+</header>
 <head>
     <link href="~/Pages/Style/header.css?v=@headerCss" rel="stylesheet" />
     <link href="~/Pages/Style/button.css?v=@buttonCss" rel="stylesheet" />
@@ -281,10 +283,6 @@
     <link href="~/Pages/Style/textfield.css?v=@textfieldCss" rel="stylesheet" />
 </head>
 <body>
-
-    <header role="banner">
-        @RenderPage("~/Pages/Common/Header.cshtml", "Step 2: Summary Distribution")
-    </header>
 
     <main class="main-content-wrapper" role="main">
         <section class="summary-container">
