@@ -215,20 +215,7 @@
 
         <!-- Render Sidebar Direct Component -->
         @RenderPage("~/Pages/Component/SideBar.cshtml", activeTab)
-        <header role="banner" class="dashboard-header">
-            <div class="two-col">
-                <div class="col-left-side">
-                        @RenderPage("~/Pages/Component/TabNav.cshtml", activeTab)
-                </div>
-                <div class="col-right-side">
-                    <div class="logout-container">
-                        <form method="post" style="margin: 0;">
-                            <button type="submit" name="actionButton" value="Logout" class="logout-link"><i class="bi bi-box-arrow-right"></i>Log Out</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </header>
+ 
 
         <main class="content-wrapper" role="main">
             @if (activeTab == "Main")
