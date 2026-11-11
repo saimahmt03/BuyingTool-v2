@@ -265,8 +265,10 @@
     <Content Include="Pages\Scripts\Index.js" />
     <Content Include="Global.asax" />
     <Content Include="Pages\Scripts\JQuery4.js" />
+    <Content Include="Pages\Scripts\login.js" />
     <Content Include="Pages\Scripts\modal.js" />
     <Content Include="Pages\Scripts\SetFilters.js" />
+    <Content Include="Pages\Scripts\sidebar.js" />
     <Content Include="Pages\Style\button.css" />
     <Content Include="Pages\Style\dropdown.css" />
     <Content Include="Pages\Style\dropdownmultipleselect.css" />
@@ -282,8 +284,8 @@
     <Content Include="Pages\Style\sectionheader.css" />
     <Content Include="Pages\Style\segmented-control.css" />
     <Content Include="Pages\Style\set-filters-window.css" />
+    <Content Include="Pages\Style\sidebar.css" />
     <Content Include="Pages\Style\size-curve.css" />
-    <Content Include="Pages\Style\tab-bar.css" />
     <Content Include="Pages\Style\table-with-pagination.css" />
     <Content Include="Pages\Style\table.css" />
     <Content Include="Pages\Style\table2.css" />
@@ -326,7 +328,6 @@
   <ItemGroup>
     <Content Include="Index.cshtml" />
     <None Include="packages.config" />
-    <Content Include="Pages\Component\TabNav.cshtml" />
     <Content Include="Pages\Component\SetFiltersWindow.cshtml" />
     <Content Include="Pages\Common\Dropdown.cshtml" />
     <Content Include="Pages\Common\Header.cshtml" />
@@ -352,6 +353,7 @@
     <Content Include="Pages\Style\Font\Roboto-VariableFont_wdth,wght.ttf" />
     <Content Include="Pages\Common\TableMaxAveMin.cshtml" />
     <Content Include="Pages\Common\TableWithPaginationOrderQtyIAQty.cshtml" />
+    <Content Include="Pages\Component\SideBar.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
