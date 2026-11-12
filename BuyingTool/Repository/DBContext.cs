@@ -414,8 +414,6 @@ namespace BuyingTool.Repository
                         command.CommandText = StoredProcedures.GetStoreGradeAndSizeFilter;
                         command.CommandType = CommandType.StoredProcedure;
 
-                        command.CommandTimeout = 60;
-
                         DbProviderFactory factory;
                         string errorMessage = _databaseConnection.TryGetDbProviderFactory(out factory);
 
@@ -622,7 +620,7 @@ namespace BuyingTool.Repository
                         command.CommandType = CommandType.StoredProcedure;
 
                         // Increase timeout from default 30 seconds to 60 seconds (or more if needed)
-                        command.CommandTimeout = 60;
+                        command.CommandTimeout = 120;
 
                         DbProviderFactory factory;
                         string errorMessage = _databaseConnection.TryGetDbProviderFactory(out factory);
@@ -833,7 +831,7 @@ namespace BuyingTool.Repository
                         command.CommandText = StoredProcedures.GetCalculation;
                         command.CommandType = CommandType.StoredProcedure;
 
-                        command.CommandTimeout = 60;
+                        command.CommandTimeout = 120;
 
                         DbProviderFactory factory;
                         string errorMessage = _databaseConnection.TryGetDbProviderFactory(out factory);
@@ -996,7 +994,8 @@ namespace BuyingTool.Repository
                     {
                         command.CommandText = StoredProcedures.GetSummaryDistribution;
                         command.CommandType = CommandType.StoredProcedure;
-                        command.CommandTimeout = 60;
+                        
+                        command.CommandTimeout = 120;
 
                         DbProviderFactory factory;
                         string errorMessage = _databaseConnection.TryGetDbProviderFactory(out factory);
@@ -1148,7 +1147,7 @@ namespace BuyingTool.Repository
                         command.CommandText = StoredProcedures.GetOverride;
                         command.CommandType = CommandType.StoredProcedure;
 
-                        command.CommandTimeout = 60;
+                        command.CommandTimeout = 120;
 
                         DbProviderFactory factory;
                         string errorMessage = _databaseConnection.TryGetDbProviderFactory(out factory);
@@ -1304,7 +1303,7 @@ namespace BuyingTool.Repository
                         command.CommandText = StoredProcedures.GetStoreSizeBreakdown;
                         command.CommandType = CommandType.StoredProcedure;
 
-                        command.CommandTimeout = 60;
+                        command.CommandTimeout = 120;
 
                         DbProviderFactory factory;
                         string errorMessage = _databaseConnection.TryGetDbProviderFactory(out factory);
@@ -1457,7 +1456,7 @@ namespace BuyingTool.Repository
                         command.CommandType = CommandType.StoredProcedure;
 
                         // Increase timeout from default 30 seconds to 60 seconds (or more if needed)
-                        command.CommandTimeout = 60;
+                        command.CommandTimeout = 120;
 
                         DbProviderFactory factory;
                         string errorMessage = _databaseConnection.TryGetDbProviderFactory(out factory);
@@ -1609,7 +1608,7 @@ namespace BuyingTool.Repository
                         command.CommandType = CommandType.StoredProcedure;
 
                         // Increase timeout from default 30 seconds to 60 seconds (or more if needed)
-                        command.CommandTimeout = 60;
+                        command.CommandTimeout = 120;
 
                         DbProviderFactory factory;
                         string errorMessage = _databaseConnection.TryGetDbProviderFactory(out factory);
@@ -1771,7 +1770,8 @@ namespace BuyingTool.Repository
                     {
                         command.CommandText = StoredProcedures.AddToAlloc;
                         command.CommandType = CommandType.StoredProcedure;
-                        command.CommandTimeout = 60;
+                        
+                        command.CommandTimeout = 300;
 
                         // Add parameters matching the updated stored procedure signature
                         command.Parameters.Add(DatabaseParameterHelper.CreateParameter("@Brand", brand ?? string.Empty, DbType.String, factory));
@@ -1918,7 +1918,7 @@ namespace BuyingTool.Repository
                     {
                         command.CommandText = StoredProcedures.GetExportedToAllocToolHistory;
                         command.CommandType = CommandType.StoredProcedure;
-                        command.CommandTimeout = 60;
+                        command.CommandTimeout = 120;
 
                         DbProviderFactory factory;
                         string errorMessage = _databaseConnection.TryGetDbProviderFactory(out factory);
