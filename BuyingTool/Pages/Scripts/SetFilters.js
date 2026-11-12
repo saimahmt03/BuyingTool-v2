@@ -1021,10 +1021,10 @@ function setOrganizationFilterTable(element = '') {
         onlyAddMultiSelect(siteName, siteNameset);
     }
     if (element != 'dd_storeGrade') {
-        processMultiSelect(storeGrade, storeGradeset);
+        processStoreGrade(storeGrade, storeGradeset);
     }
     else {
-        onlyAddMultiSelect(storeGrade, storeGradeset);
+        onlyAddStoreGrade(storeGrade, storeGradeset);
     }
 
 };
@@ -1578,6 +1578,80 @@ function onlyAddTerritory(element, set) {
         }
     }
 };
+function processStoreGrade(element, set) {
+    var SelectedList = new Set();
+    while (element.length > 0) {
+        if (element.options[0].selected) {
+            SelectedList.add(element.options[0].value)
+        }
+        element.remove(0);
+    }
+    set = new Set([...set].sort());
+    element.options[0] = new Option('-- Select --', '');
+    if (set.has('Online')) {
+        element.options[1] = new Option('Online', 'Online');
+        let counter = 2;
+        for (let value of set) {
+            if (value != null && value != 'null' && value != '') {
+                element.options[counter] = new Option(value, value);
+                if (SelectedList.has(value.toString())) {
+                    element.options[counter].selected = true;
+                }
+                counter++;
+            }
+        }
+    }
+    else {
+        let counter = 1;
+        for (let value of set) {
+            if (value != null && value != 'null' && value != '') {
+                element.options[counter] = new Option(value, value);
+                if (SelectedList.has(value.toString())) {
+                    element.options[counter].selected = true;
+                }
+                counter++;
+            }
+        }
+    }
+};
+function onlyAddStoreGrade(element, set) {
+    var SelectedList = new Set();
+    while (element.length > 0) {
+        if (element.options[0].selected) {
+            SelectedList.add(element.options[0].value)
+        }
+        set.add(element.options[0].value);
+        element.remove(0);
+    }
+    set = new Set([...set].sort());
+    element.options[0] = new Option('-- Select --', '');
+    if (set.has('Online')) {
+        element.options[1] = new Option('Online', 'Online');
+        let counter = 2;
+        for (let value of set) {
+            if (value != null && value != 'null' && value != '') {
+                element.options[counter] = new Option(value, value);
+                if (SelectedList.has(value.toString())) {
+                    element.options[counter].selected = true;
+                }
+                counter++;
+            }
+        }
+    }
+    else {
+        let counter = 1;
+        for (let value of set) {
+            if (value != null && value != 'null' && value != '') {
+                element.options[counter] = new Option(value, value);
+                if (SelectedList.has(value.toString())) {
+                    element.options[counter].selected = true;
+                }
+                counter++;
+            }
+        }
+    }
+};
+
 //#endregion
 function onlyAddMultiSelect(element, set) {
     var SelectedList = new Set();
