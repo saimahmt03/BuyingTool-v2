@@ -1589,6 +1589,7 @@ function processStoreGrade(element, set) {
     set = new Set([...set].sort());
     element.options[0] = new Option('-- Select --', '');
     if (set.has('Online')) {
+        set.delete('Online');
         element.options[1] = new Option('Online', 'Online');
         let counter = 2;
         for (let value of set) {
@@ -1626,6 +1627,7 @@ function onlyAddStoreGrade(element, set) {
     set = new Set([...set].sort());
     element.options[0] = new Option('-- Select --', '');
     if (set.has('Online')) {
+        set.delete('Online');
         element.options[1] = new Option('Online', 'Online');
         let counter = 2;
         for (let value of set) {
