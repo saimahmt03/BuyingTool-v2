@@ -1082,6 +1082,7 @@ function processMultiSelect(element, set) {
             counter++;
         }
     }
+    element = new MultiSelect(element);
 };
 //#region field specific sorting
 
@@ -1161,6 +1162,7 @@ function processCollection(element, set) {
             counter++;
         }
     }
+    element = new MultiSelect(element);
 };
 function processArea(element, set) {
     set = new Set([...set].sort(function (a, b) {
@@ -1184,6 +1186,7 @@ function processArea(element, set) {
             counter++;
         }
     }
+    element = new MultiSelect(element);
 };
 function processChannel(element, set) {
     set = new Set([...set].sort(function (a, b) {
@@ -1207,6 +1210,7 @@ function processChannel(element, set) {
             counter++;
         }
     }
+    element = new MultiSelect(element);
 };
 function processPeriodPlan(element, set) {
     set = new Set([...set].sort(function (a, b) {
@@ -1230,6 +1234,7 @@ function processPeriodPlan(element, set) {
             counter++;
         }
     }
+    element = new MultiSelect(element);
 };
 function processStyle(element, set) {
     set = new Set([...set].sort(function (a, b) {
@@ -1253,6 +1258,7 @@ function processStyle(element, set) {
             counter++;
         }
     }
+    element = new MultiSelect(element);
 };
 function processStyleCode(element, set) {
     set = new Set([...set].sort(function (a, b) {
@@ -1276,6 +1282,7 @@ function processStyleCode(element, set) {
             counter++;
         }
     }
+    element = new MultiSelect(element);
 };
 function processTerritory(element, set) {
     set = new Set([...set].sort(function (a, b) {
@@ -1299,6 +1306,7 @@ function processTerritory(element, set) {
             counter++;
         }
     }
+    element = new MultiSelect(element);
 };
 function processOrigSrp(element, set) {
     set.delete('null');
@@ -1325,6 +1333,7 @@ function processOrigSrp(element, set) {
             counter++;
         }
     }
+    element = new MultiSelect(element);
 };
 function onlyAddOrigSrp(element, set) {
     set.delete('null');
@@ -1352,6 +1361,7 @@ function onlyAddOrigSrp(element, set) {
             counter++;
         }
     }
+    element = new MultiSelect(element);
 };
 function onlyAddBrand(element, set) {
     var selection = element.value;
@@ -1433,6 +1443,7 @@ function onlyAddCollection(element, set) {
             counter++;
         }
     }
+    element = new MultiSelect(element);
 };
 function onlyAddArea(element, set) {
     var SelectedList = new Set();
@@ -1457,6 +1468,7 @@ function onlyAddArea(element, set) {
             counter++;
         }
     }
+    element = new MultiSelect(element);
 };
 function onlyAddChannel(element, set) {
     var SelectedList = new Set();
@@ -1481,6 +1493,7 @@ function onlyAddChannel(element, set) {
             counter++;
         }
     }
+    element = new MultiSelect(element);
 };
 function onlyAddPeriodPlan(element, set) {
     var SelectedList = new Set();
@@ -1505,6 +1518,7 @@ function onlyAddPeriodPlan(element, set) {
             counter++;
         }
     }
+    element = new MultiSelect(element);
 };
 function onlyAddStyle(element, set) {
     var SelectedList = new Set();
@@ -1529,6 +1543,7 @@ function onlyAddStyle(element, set) {
             counter++;
         }
     }
+    element = new MultiSelect(element);
 };
 function onlyAddStyleCode(element, set) {
     var SelectedList = new Set();
@@ -1553,6 +1568,7 @@ function onlyAddStyleCode(element, set) {
             counter++;
         }
     }
+    element = new MultiSelect(element);
 };
 function onlyAddTerritory(element, set) {
     var SelectedList = new Set();
@@ -1577,6 +1593,7 @@ function onlyAddTerritory(element, set) {
             counter++;
         }
     }
+    element = new MultiSelect(element);
 };
 function processStoreGrade(element, set) {
     var SelectedList = new Set();
@@ -1614,6 +1631,7 @@ function processStoreGrade(element, set) {
             }
         }
     }
+    element = new MultiSelect(element);
 };
 function onlyAddStoreGrade(element, set) {
     var SelectedList = new Set();
@@ -1652,6 +1670,7 @@ function onlyAddStoreGrade(element, set) {
             }
         }
     }
+    element = new MultiSelect(element);
 };
 
 //#endregion
@@ -1676,6 +1695,7 @@ function onlyAddMultiSelect(element, set) {
             counter++;
         }
     }
+    element = new MultiSelect(element);
 };
 
 function populateSelect(value, element) {
@@ -1694,6 +1714,7 @@ function populateMultiSelect(list, element) {
         }
         counter++;
     }
+    element = new MultiSelect(element);
 }
 
 const getColumn = (anArray, columnName) =>

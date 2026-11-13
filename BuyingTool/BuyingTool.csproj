@@ -262,13 +262,16 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Site.css" />
     <Content Include="Pages\Scripts\Index.js" />
     <Content Include="Global.asax" />
     <Content Include="Pages\Scripts\JQuery4.js" />
     <Content Include="Pages\Scripts\login.js" />
     <Content Include="Pages\Scripts\modal.js" />
+    <Content Include="Pages\Scripts\MultiSelect.js" />
     <Content Include="Pages\Scripts\SetFilters.js" />
     <Content Include="Pages\Scripts\sidebar.js" />
+    <Content Include="Pages\Style\MultiSelect.css" />
     <Content Include="Pages\Style\pagebanner.css" />
     <Content Include="Pages\Style\button.css" />
     <Content Include="Pages\Style\dropdown.css" />
@@ -356,6 +359,9 @@
     <Content Include="Pages\Common\TableWithPaginationOrderQtyIAQty.cshtml" />
     <Content Include="Pages\Component\SideBar.cshtml" />
     <Content Include="Pages\Common\PageBanner.cshtml" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Pages\Common\testview.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
