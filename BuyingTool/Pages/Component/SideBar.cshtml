@@ -26,17 +26,21 @@
     <!-- Main Navigation List -->
     <nav class="sidebar-nav">
         <ul class="sidebar-menu">
+            @{ 
+                var counter = 0;
+            } 
             @foreach (var tab in tabs)
             {
                 var isActive = (tab.Text == activeTab);
                 var url = Href("~/") + "?tab=" + Uri.EscapeDataString(tab.Text);
 
-                <li class="sidebar-item">
+                <li class="sidebar-item" id="navTab-@counter">
                     <a href="@url" class="sidebar-link @(isActive ? "active" : "")" aria-current="@(isActive ? "page" : null)">
                         <span class="sidebar-label">@tab.Text</span>
                         <span class="sidebar-icon-box">@Html.Raw(tab.Icon)</span>
                     </a>
                 </li>
+                counter++;
             }
 
             <!-- Change Password Link. Remove comment once this is ready to use.

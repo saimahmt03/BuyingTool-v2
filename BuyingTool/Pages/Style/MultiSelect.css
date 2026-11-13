@@ -1,23 +1,23 @@
 ﻿:root {
-    --spacing-smaller: 0.1875rem;
-    --spacing-small: 0.3125rem;
-    --spacing-medium: 0.4375rem;
-    --spacing-large: 0.75rem;
-    --font-size: 0.75rem;
-    --font-size-large: 0.875rem;
-    --font-size-larger: 1rem;
+    --spacing-smaller: 1px;
+    --spacing-small: 3px;
+    --spacing-medium: 3px;
+    --spacing-large: 3px;
+    --font-size: 8px;
+    --font-size-large: 10px;
+    --font-size-larger: 12px;
     --line-height: 1rem;
     --line-height-larger: 1.25rem;
-    --primary-color: #40c979;
+    --primary-color: #5D77B8;
     --ms-bg: #ffffff;
     --text-color-dark: #212529;
     --text-color: #585858;
     --text-color-light: #65727e;
-    --border-color: #bebebe;
+    --border-color: #C9C9C9;
     --border-color-light: #f1f3f5;
     --input-placeholder: #65727e;
     --input-background: #e9e9ed;
-    --input-border: #dee2e6;
+    --input-border: #C9C9C9;
     --input-border-active: #c1c9d0;
     --input-border-invalid: #e44e4e;
     --input-outline-invalid: rgba(219, 138, 138, 0.5);
@@ -27,50 +27,14 @@
     --checkbox-border: #ced4da;
     --checkbox-background: #ffffff;
     --checkbox-active: #ffffff;
-    --input-min-height: 2.8125rem;
+    --input-min-height: 20px;
     --options-height: 40dvh;
-    --border-radius: 0.3125rem;
+    --border-radius: 8px;
     --icon-size: 0.75rem;
     --icon-space: 1.875rem;
     --checkbox-size: 1rem;
-    --checkbox-radius: 0.25rem;
-    --checkbox-thickness: 0.125rem
-}
-
-.multi-select[data-theme=dark] {
-    --ms-bg: #2b2b2b;
-    --text-color-dark: #f8f9fa;
-    --text-color: #adb5bd;
-    --text-color-light: #adb5bd;
-    --border-color: #495057;
-    --border-color-light: #495057;
-    --input-background: #343a40;
-    --input-border: #495057;
-    --input-border-active: #6c757d;
-    --option-background: #343a40;
-    --checkbox-background: #2b2b2b;
-    --checkbox-border: #6c757d;
-    --checkbox-active: #ffffff;
-    --input-disabled: #1e1e1e
-}
-
-@@media (prefers-color-scheme:dark) {
-    .multi-select[data-theme=auto] {
-        --ms-bg: #2b2b2b;
-        --text-color-dark: #f8f9fa;
-        --text-color: #adb5bd;
-        --text-color-light: #adb5bd;
-        --border-color: #495057;
-        --border-color-light: #495057;
-        --input-background: #343a40;
-        --input-border: #495057;
-        --input-border-active: #6c757d;
-        --option-background: #343a40;
-        --checkbox-background: #2b2b2b;
-        --checkbox-border: #6c757d;
-        --checkbox-active: #ffffff;
-        --input-disabled: #1e1e1e
-    }
+    --checkbox-radius: 80px;
+    --checkbox-thickness: 0px;
 }
 
 .multi-select {
@@ -84,7 +48,7 @@
 
     .multi-select .multi-select-header {
         background-color: var(--ms-bg);
-        border: 1px solid var(--input-border);
+        border: 2px solid var(--input-border);
         border-radius: var(--border-radius);
         padding: var(--spacing-medium) var(--spacing-large);
         padding-right: var(--icon-space);
@@ -100,6 +64,7 @@
             top: 50%;
             right: 1rem;
             transform: translateY(-50%);
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23949ba3' viewBox='0 0 16 16'%3E%3Cpath d='M8 13.1l-8-8 2.1-2.2 5.9 5.9 5.9-5.9 2.1 2.2z'/%3E%3C/svg%3E");
             height: var(--icon-size);
             width: var(--icon-size)
         }
@@ -143,7 +108,7 @@
         top: 100%;
         left: 0;
         right: 0;
-        z-index: 999999;
+        z-index: 999;
         margin-top: var(--spacing-small);
         padding: var(--spacing-small);
         background-color: var(--ms-bg);
@@ -167,7 +132,8 @@
         }
 
             .multi-select .multi-select-options::-webkit-scrollbar-thumb:hover {
-                background: var(--input-placeholder)
+                background: var(--input-placeholder);
+                transition: all ease 0.3s;
             }
 
         .multi-select .multi-select-options .multi-select-all, .multi-select .multi-select-options .multi-select-group, .multi-select .multi-select-options .multi-select-option {
@@ -219,7 +185,8 @@
             }
 
             .multi-select .multi-select-options .multi-select-all:active, .multi-select .multi-select-options .multi-select-all:hover, .multi-select .multi-select-options .multi-select-group:active, .multi-select .multi-select-options .multi-select-group:hover, .multi-select .multi-select-options .multi-select-option:active, .multi-select .multi-select-options .multi-select-option:hover {
-                background-color: var(--option-background)
+                background-color: var(--option-background);
+                transition: all ease 0.3s;
             }
 
         .multi-select .multi-select-options .multi-select-all {
@@ -234,7 +201,7 @@
 
         .multi-select .multi-select-options .multi-select-search {
             padding: var(--spacing-medium) var(--spacing-large);
-            border: 1px solid var(--input-border);
+            border: 2px solid var(--input-border);
             border-radius: var(--border-radius);
             margin: .625rem;
             width: calc(100% - 1.25rem);
@@ -272,7 +239,7 @@
         border-color: var(--input-border-invalid);
         outline: var(--input-outline-invalid) solid 1px
     }
-
-.multi-select-options {
+.multi-select-header:hover {
+    border: 2px solid #423763;
+    transition: all ease 0.3s;
 }
-

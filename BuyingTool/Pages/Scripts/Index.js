@@ -1,7 +1,7 @@
 ﻿window.onload = function () {
     var calculationdone = document.getElementById('calculationdone');
     if (calculationdone.innerHTML != 'true') {
-        for (var i = 3; i <= 6; i++) {
+        for (var i = 1; i <= 4; i++) {
             var tab = document.getElementById("navTab-" + i.toString());
             if (tab != null) {
                 tab.style.pointerEvents = "none";
@@ -11,7 +11,7 @@
         }
     }
     else {
-        for (var i = 3; i <= 6; i++) {
+        for (var i = 1; i <= 4; i++) {
             var tab = document.getElementById("navTab-" + i.toString());
             if (tab != null) {
                 tab.style.pointerEvents = "all";

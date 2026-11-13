@@ -69,10 +69,10 @@ header {
 
 /* Reusable Filter Group Spacing */
 .filter-group {
-    margin: 8px;
+    margin: 15px;
     border-radius: 15px;
     border: 2px solid var(--multiselect-border);
-    padding:12px;
+    padding: 12px;
 }
 
     /* Apply dark teal to inner filter group headers EXCEPT the first one ("Required Filters*") */
@@ -99,20 +99,16 @@ header {
 
 /* Dropdown & Input Layout Stability / Performance Containment */
 .filter-panel select,
-.filter-panel .dropdown-field,
 .filter-panel input[type="text"] {
-    contain: layout style;
     width: 100%;
     min-width: 0;
 }
 
 .filter-group .form-group,
-.filter-group .dropdown-container,
 .filter-group > div {
     display: flex;
     align-items: center;
     margin-top: 4px;
-    contain: layout;
 }
 
 .filter-group label,
