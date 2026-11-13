@@ -28,7 +28,6 @@
             @{ var counter = 0; }
             @foreach (var tab in tabs)
             {
-                counter++;
                 var isActive = (tab.Text == activeTab);
                 var url = Href("~/") + "?tab=" + Uri.EscapeDataString(tab.Text);
 

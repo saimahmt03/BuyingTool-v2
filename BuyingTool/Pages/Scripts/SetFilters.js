@@ -1598,11 +1598,14 @@ function processStoreGrade(element, set) {
         element.remove(0);
     }
     set = new Set([...set].sort());
-    element.options[0] = new Option('-- Select --', '');
     if (set.has('Online')) {
+        var a = set['Online'];
         set.delete('Online');
-        element.options[1] = new Option('Online', 'Online');
-        let counter = 2;
+        element.options[0] = new Option('Online', 'Online');
+        if (SelectedList.has('Online')) {
+            element.options[0].selected = true;
+        }
+        let counter = 1;
         for (let value of set) {
             if (value != null && value != 'null' && value != '') {
                 element.options[counter] = new Option(value, value);
@@ -1639,8 +1642,11 @@ function onlyAddStoreGrade(element, set) {
     set = new Set([...set].sort());
     if (set.has('Online')) {
         set.delete('Online');
-        element.options[1] = new Option('Online', 'Online');
-        let counter = 2;
+        element.options[0] = new Option('Online', 'Online');
+        if (SelectedList.has('Online')) {
+            element.options[0].selected = true;
+        }
+        let counter = 1;
         for (let value of set) {
             if (value != null && value != 'null' && value != '') {
                 element.options[counter] = new Option(value, value);
