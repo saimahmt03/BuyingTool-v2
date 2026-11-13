@@ -4,13 +4,12 @@
 
     var tabs = new[]
     {
-       // new { Text = "Main",                  Icon = "&#8962;", Short = "H" },
-        new { Text = "1. Set Filters",        Icon = "I",       Short = "I" },
-        new { Text = "2. Review Summary",     Icon = "LP",      Short = "LP" },
-        new { Text = "3. Review Site Details",Icon = "&#128092;", Short = "SD" },
-        new { Text = "4. Export",             Icon = "O",       Short = "O" },
-        new { Text = "Size Curve",            Icon = "&#9638;", Short = "SC" },
-        new { Text = "Monitoring",            Icon = "&#9881;", Short = "M" }
+        new { Text = "1. Set Filters",        Icon = "SF",       Short = "I" },     //0
+        new { Text = "2. Review Summary",     Icon = "RS",       Short = "LP" },    //1
+        new { Text = "3. Review Site Details",Icon = "RSD",      Short = "SD" },    //2
+        new { Text = "4. Export",             Icon = "EX",       Short = "O" },     //3
+        new { Text = "Size Curve",            Icon = "SC",       Short = "SC" },    //4
+        new { Text = "Monitoring",            Icon = "▦",  Short = "M" }            //5
     };
 }
 
@@ -26,12 +25,14 @@
     <!-- Main Navigation List -->
     <nav class="sidebar-nav">
         <ul class="sidebar-menu">
+            @{ var counter = 0; }
             @foreach (var tab in tabs)
             {
+                counter++;
                 var isActive = (tab.Text == activeTab);
                 var url = Href("~/") + "?tab=" + Uri.EscapeDataString(tab.Text);
 
-                <li class="sidebar-item">
+                <li class="sidebar-item" id="navTab-@counter">
                     <a href="@url" class="sidebar-link @(isActive ? "active" : "")" aria-current="@(isActive ? "page" : null)">
                         <span class="sidebar-label">@tab.Text</span>
                         <span class="sidebar-icon-box">@Html.Raw(tab.Icon)</span>
@@ -52,7 +53,7 @@
                 <form method="post" class="logout-form">
                     <button type="submit" name="actionButton" value="Logout" class="sidebar-link logout-btn">
                         <span class="sidebar-label">Logout</span>
-                        <span class="sidebar-icon-box">&#9211;</span>
+                        <span class="sidebar-icon-box">⏻</span>
                     </button>
                 </form>
             </li>
