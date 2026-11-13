@@ -152,13 +152,24 @@ $(document).ready(function () {
         setPeriodPlanTable();
 
         let sessionPeriodPlan = document.getElementById('sessionPeriodPlan');
-        var periodplan = document.getElementById('dd_periodplans');
+        let periodplan = document.getElementById('dd_periodplans');
         periodplan.value = sessionPeriodPlan.innerHTML;
 
         HideLoader();
     });
-    const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
-
+    let displaydone = document.getElementById('displaydone');
+    if (displaydone.innerHTML != 'true') {
+        let gallery = document.getElementById('options-gallery-panel');
+        gallery.style.display = 'none';
+    }
+    else {
+        let gallery = document.getElementById('options-gallery-panel');
+        gallery.style.display = 'flex';
+    }
+    resizeFilters();
+    window.addEventListener('resize', () => {
+        resizeFilters();
+    });
 });
 //#region button behavior
 function changeFilter(element) {
@@ -1071,8 +1082,7 @@ function processMultiSelect(element, set) {
         }
         element.remove(0);
     }
-    element.options[0] = new Option('-- Select --', '');
-    let counter = 1;
+    let counter = 0;
     for (let value of set) {
         if (value != null && value != 'null' && value != '') {
             element.options[counter] = new Option(value, value);
@@ -1082,6 +1092,7 @@ function processMultiSelect(element, set) {
             counter++;
         }
     }
+    element = new MultiSelect(element);
 };
 //#region field specific sorting
 
@@ -1150,8 +1161,7 @@ function processCollection(element, set) {
         }
         element.remove(0);
     }
-    element.options[0] = new Option('-- Select --', '');
-    let counter = 1;
+    let counter = 0;
     for (let value of set) {
         if (value != null && value != 'null' && value != '') {
             element.options[counter] = new Option(value, value);
@@ -1161,6 +1171,7 @@ function processCollection(element, set) {
             counter++;
         }
     }
+    element = new MultiSelect(element);
 };
 function processArea(element, set) {
     set = new Set([...set].sort(function (a, b) {
@@ -1173,8 +1184,7 @@ function processArea(element, set) {
         }
         element.remove(0);
     }
-    element.options[0] = new Option('-- Select --', '');
-    let counter = 1;
+    let counter = 0;
     for (let value of set) {
         if (value != null && value != 'null' && value != '') {
             element.options[counter] = new Option(value, value);
@@ -1184,6 +1194,7 @@ function processArea(element, set) {
             counter++;
         }
     }
+    element = new MultiSelect(element);
 };
 function processChannel(element, set) {
     set = new Set([...set].sort(function (a, b) {
@@ -1196,8 +1207,7 @@ function processChannel(element, set) {
         }
         element.remove(0);
     }
-    element.options[0] = new Option('-- Select --', '');
-    let counter = 1;
+    let counter = 0;
     for (let value of set) {
         if (value != null && value != 'null' && value != '') {
             element.options[counter] = new Option(value, value);
@@ -1207,6 +1217,7 @@ function processChannel(element, set) {
             counter++;
         }
     }
+    element = new MultiSelect(element);
 };
 function processPeriodPlan(element, set) {
     set = new Set([...set].sort(function (a, b) {
@@ -1242,8 +1253,7 @@ function processStyle(element, set) {
         }
         element.remove(0);
     }
-    element.options[0] = new Option('-- Select --', '');
-    let counter = 1;
+    let counter = 0;
     for (let value of set) {
         if (value != null && value != 'null' && value != '') {
             element.options[counter] = new Option(value, value);
@@ -1253,6 +1263,7 @@ function processStyle(element, set) {
             counter++;
         }
     }
+    element = new MultiSelect(element);
 };
 function processStyleCode(element, set) {
     set = new Set([...set].sort(function (a, b) {
@@ -1265,8 +1276,7 @@ function processStyleCode(element, set) {
         }
         element.remove(0);
     }
-    element.options[0] = new Option('-- Select --', '');
-    let counter = 1;
+    let counter = 0;
     for (let value of set) {
         if (value != null && value != 'null' && value != '') {
             element.options[counter] = new Option(value, value);
@@ -1276,6 +1286,7 @@ function processStyleCode(element, set) {
             counter++;
         }
     }
+    element = new MultiSelect(element);
 };
 function processTerritory(element, set) {
     set = new Set([...set].sort(function (a, b) {
@@ -1288,8 +1299,7 @@ function processTerritory(element, set) {
         }
         element.remove(0);
     }
-    element.options[0] = new Option('-- Select --', '');
-    let counter = 1;
+    let counter = 0;
     for (let value of set) {
         if (value != null && value != 'null' && value != '') {
             element.options[counter] = new Option(value, value);
@@ -1299,6 +1309,7 @@ function processTerritory(element, set) {
             counter++;
         }
     }
+    element = new MultiSelect(element);
 };
 function processOrigSrp(element, set) {
     set.delete('null');
@@ -1314,8 +1325,7 @@ function processOrigSrp(element, set) {
         }
         element.remove(0);
     }
-    element.options[0] = new Option('-- Select --', '');
-    let counter = 1;
+    let counter = 0;
     for (let value of set) {
         if (value != null && value != 'null' && value != '') {
             element.options[counter] = new Option(value, value);
@@ -1325,6 +1335,7 @@ function processOrigSrp(element, set) {
             counter++;
         }
     }
+    element = new MultiSelect(element);
 };
 function onlyAddOrigSrp(element, set) {
     set.delete('null');
@@ -1341,8 +1352,7 @@ function onlyAddOrigSrp(element, set) {
     set = set.sort(function (a, b) {
         return parseInt(a) - parseInt(b);
     });
-    element.options[0] = new Option('-- Select --', '');
-    let counter = 1;
+    let counter = 0;
     for (let value of set) {
         if (value != null && value != 'null' && value != '') {
             element.options[counter] = new Option(value, value);
@@ -1352,6 +1362,7 @@ function onlyAddOrigSrp(element, set) {
             counter++;
         }
     }
+    element = new MultiSelect(element);
 };
 function onlyAddBrand(element, set) {
     var selection = element.value;
@@ -1422,8 +1433,7 @@ function onlyAddCollection(element, set) {
     set = new Set([...set].sort(function (a, b) {
         return collectionSortReference.get(a) - collectionSortReference.get(b);
     }));
-    element.options[0] = new Option('-- Select --', '');
-    let counter = 1;
+    let counter = 0;
     for (let value of set) {
         if (value != null && value != 'null' && value != '') {
             element.options[counter] = new Option(value, value);
@@ -1433,6 +1443,7 @@ function onlyAddCollection(element, set) {
             counter++;
         }
     }
+    element = new MultiSelect(element);
 };
 function onlyAddArea(element, set) {
     var SelectedList = new Set();
@@ -1446,8 +1457,7 @@ function onlyAddArea(element, set) {
     set = new Set([...set].sort(function (a, b) {
         return areaSortReference.get(a) - areaSortReference.get(b);
     }));
-    element.options[0] = new Option('-- Select --', '');
-    let counter = 1;
+    let counter = 0;
     for (let value of set) {
         if (value != null && value != 'null' && value != '') {
             element.options[counter] = new Option(value, value);
@@ -1457,6 +1467,7 @@ function onlyAddArea(element, set) {
             counter++;
         }
     }
+    element = new MultiSelect(element);
 };
 function onlyAddChannel(element, set) {
     var SelectedList = new Set();
@@ -1470,8 +1481,7 @@ function onlyAddChannel(element, set) {
     set = new Set([...set].sort(function (a, b) {
         return channelSortReference.get(a) - channelSortReference.get(b);
     }));
-    element.options[0] = new Option('-- Select --', '');
-    let counter = 1;
+    let counter = 0;
     for (let value of set) {
         if (value != null && value != 'null' && value != '') {
             element.options[counter] = new Option(value, value);
@@ -1481,6 +1491,7 @@ function onlyAddChannel(element, set) {
             counter++;
         }
     }
+    element = new MultiSelect(element);
 };
 function onlyAddPeriodPlan(element, set) {
     var SelectedList = new Set();
@@ -1518,8 +1529,7 @@ function onlyAddStyle(element, set) {
     set = new Set([...set].sort(function (a, b) {
         return styleSortReference.get(a) - styleSortReference.get(b);
     }));
-    element.options[0] = new Option('-- Select --', '');
-    let counter = 1;
+    let counter = 0;
     for (let value of set) {
         if (value != null && value != 'null' && value != '') {
             element.options[counter] = new Option(value, value);
@@ -1529,6 +1539,7 @@ function onlyAddStyle(element, set) {
             counter++;
         }
     }
+    element = new MultiSelect(element);
 };
 function onlyAddStyleCode(element, set) {
     var SelectedList = new Set();
@@ -1542,8 +1553,7 @@ function onlyAddStyleCode(element, set) {
     set = new Set([...set].sort(function (a, b) {
         return styleCodeSortReference.get(a) - styleCodeSortReference.get(b);
     }));
-    element.options[0] = new Option('-- Select --', '');
-    let counter = 1;
+    let counter = 0;
     for (let value of set) {
         if (value != null && value != 'null' && value != '') {
             element.options[counter] = new Option(value, value);
@@ -1553,6 +1563,7 @@ function onlyAddStyleCode(element, set) {
             counter++;
         }
     }
+    element = new MultiSelect(element);
 };
 function onlyAddTerritory(element, set) {
     var SelectedList = new Set();
@@ -1566,8 +1577,7 @@ function onlyAddTerritory(element, set) {
     set = new Set([...set].sort(function (a, b) {
         return territorySortReference.get(a) - territorySortReference.get(b);
     }));
-    element.options[0] = new Option('-- Select --', '');
-    let counter = 1;
+    let counter = 0;
     for (let value of set) {
         if (value != null && value != 'null' && value != '') {
             element.options[counter] = new Option(value, value);
@@ -1577,6 +1587,7 @@ function onlyAddTerritory(element, set) {
             counter++;
         }
     }
+    element = new MultiSelect(element);
 };
 function processStoreGrade(element, set) {
     var SelectedList = new Set();
@@ -1603,7 +1614,7 @@ function processStoreGrade(element, set) {
         }
     }
     else {
-        let counter = 1;
+        let counter = 0;
         for (let value of set) {
             if (value != null && value != 'null' && value != '') {
                 element.options[counter] = new Option(value, value);
@@ -1614,6 +1625,7 @@ function processStoreGrade(element, set) {
             }
         }
     }
+    element = new MultiSelect(element);
 };
 function onlyAddStoreGrade(element, set) {
     var SelectedList = new Set();
@@ -1625,7 +1637,6 @@ function onlyAddStoreGrade(element, set) {
         element.remove(0);
     }
     set = new Set([...set].sort());
-    element.options[0] = new Option('-- Select --', '');
     if (set.has('Online')) {
         set.delete('Online');
         element.options[1] = new Option('Online', 'Online');
@@ -1641,7 +1652,7 @@ function onlyAddStoreGrade(element, set) {
         }
     }
     else {
-        let counter = 1;
+        let counter = 0;
         for (let value of set) {
             if (value != null && value != 'null' && value != '') {
                 element.options[counter] = new Option(value, value);
@@ -1652,6 +1663,7 @@ function onlyAddStoreGrade(element, set) {
             }
         }
     }
+    element = new MultiSelect(element);
 };
 
 //#endregion
@@ -1665,8 +1677,7 @@ function onlyAddMultiSelect(element, set) {
         element.remove(0);
     }
     set = new Set([...set].sort());
-    element.options[0] = new Option('-- Select --', '');
-    let counter = 1;
+    let counter = 0;
     for (let value of set) {
         if (value != null && value != 'null' && value != '') {
             element.options[counter] = new Option(value, value);
@@ -1676,6 +1687,7 @@ function onlyAddMultiSelect(element, set) {
             counter++;
         }
     }
+    element = new MultiSelect(element);
 };
 
 function populateSelect(value, element) {
@@ -1686,7 +1698,7 @@ function populateSelect(value, element) {
 }
 
 function populateMultiSelect(list, element) {
-    let counter = 1;
+    let counter = 0;
     for (let value in list) {
         if (list[value] != '') {
             element.options[counter] = new Option(list[value], list[value]);
@@ -1694,6 +1706,7 @@ function populateMultiSelect(list, element) {
         }
         counter++;
     }
+    element = new MultiSelect(element);
 }
 
 const getColumn = (anArray, columnName) =>
@@ -1804,5 +1817,21 @@ function getSessionAttributesSavedData() {
     populateMultiSelect(sessionSubCategory, subcategory);
     populateMultiSelect(sessionSizeGroup, sizegroup);
     populateMultiSelect(sessionOrigSrp, origsrp);
+}
+//#endregion
+
+//#region styling functions
+function resizeFilters() {
+    let panel = document.getElementById('filters-panel');
+    let twocolumnthing = document.getElementById('twocolumnthing');
+    if (panel.clientWidth > 600) {
+        panel.style.flexDirection = 'row';
+        twocolumnthing.style.flexDirection = 'row';
+    }
+    else {
+        panel.style.flex = 1;
+        panel.style.flexDirection = 'column';
+        twocolumnthing.style.flexDirection = 'column';
+    }
 }
 //#endregion

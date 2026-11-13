@@ -1,7 +1,7 @@
 ﻿@using BuyingTool.Services
 @using System.Collections.Generic
 @using System.Data;
-@{ 
+@{
     Service service = new Service();
     ServiceValidator serviceValidator = new ServiceValidator();
 
@@ -142,7 +142,7 @@
 
         string action = Request["actionButton"];
 
-        if(action == "Apply")
+        if (action == "Apply")
         {
             activeMetric = Session["ActiveMetric"] as string;
 
@@ -155,7 +155,7 @@
             tableHeaders = th;
             tableRows = td;
         }
-        else if(action == "Export")
+        else if (action == "Export")
         {
             string userInputFileName = Request.Form["customFileName"];
             string fileName = string.IsNullOrWhiteSpace(userInputFileName) ? "000000_colorname" : userInputFileName.Trim();
@@ -168,7 +168,7 @@
         }
     }
 
-    if(!string.IsNullOrEmpty(dbResponse))
+    if (!string.IsNullOrEmpty(dbResponse))
     {
         dbResponse = "No Data Available.";
     }
@@ -264,3 +264,11 @@
         </section>
     </main>
 </body>
+
+
+
+<script>
+    $(document).ready(function () {
+        document.querySelectorAll("[data-multi-select]").forEach(select => new MultiSelect(select));
+    });
+</script>

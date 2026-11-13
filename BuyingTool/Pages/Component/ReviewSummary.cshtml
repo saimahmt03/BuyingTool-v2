@@ -411,3 +411,9 @@
         </section>
     </main>
 </body>
+
+<script>
+    $(document).ready(function () {
+        document.querySelectorAll("[data-multi-select]").forEach(select => new MultiSelect(select));
+    });
+</script>

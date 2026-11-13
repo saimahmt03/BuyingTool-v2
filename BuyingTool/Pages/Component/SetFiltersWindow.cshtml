@@ -307,6 +307,8 @@
                 Session["SubCategory"] = selectedSubCategory;
                 Session["SizeGroup"] = selectedSizeGroup;
                 Session["OrigSrp"] = selectedOrigSrp;
+
+                Session["DisplayDone"] = "True";
             }
         }
         else
@@ -350,6 +352,8 @@
             Session.Remove("SubCategory");
             Session.Remove("SizeGroup");
             Session.Remove("OrigSrp");
+
+            Session["DisplayDone"] = "False";
 
         }
     }
@@ -413,7 +417,7 @@
         <section class="dashboard-container">
 
             <!-- LEFT SIDEBAR: FILTERS PANEL -->
-            <aside class="filter-panel" aria-label="Filters Panel">
+            <aside class="filter-panel"  id="filters-panel" aria-label="Filters Panel">
                 <div class="row">
                     <header class="page-header" role="banner">
                         <h1 class="page-header__title"><i class="bi bi-funnel"></i>Filters</h1>
@@ -423,7 +427,7 @@
                         <!-- SINGLE FORM WRAPPING ALL INPUTS AND BUTTONS -->
                         <form method="post">
                             <div class="row">
-                                <div class="two-col">
+                                <div class="two-col" id="twocolumnthing">
                                     <div class="col">
                                         <div class="filter-group">
                                             <header class="page-header" role="banner">
@@ -544,19 +548,28 @@
                                 </div>
 
                                 <!--
-                                 if (!string.IsNullOrEmpty(errorMessage))
-                                 {
-                                    <div class="error-message" style="color: #ff4d4d; margin-bottom: 15px; font-weight: 500;">errorMessage</div>
-                                 }
-                                -->
+                         if (!string.IsNullOrEmpty(errorMessage))
+                         {
+                            <div class="error-message" style="color: #ff4d4d; margin-bottom: 15px; font-weight: 500;">errorMessage</div>
+                         }
+                        -->
                             </div>
+
                         </form>
                     </div>
                 </div>
             </aside>
 
+            @if (Session["DisplayDone"] != null && Session["DisplayDone"] == "True")
+            {
+                <label id="displaydone" hidden>true</label>
+            }
+            else
+            {
+                <label id="displaydone" hidden>false</label>
+            }
             <!-- RIGHT SIDEBAR: OPTIONS GALLERY PANEL -->
-            <article class="gallery-panel" aria-label="Options Gallery Panel">
+            <article class="gallery-panel" id="options-gallery-panel" aria-label="Options Gallery Panel">
                 <div class="row">
                     <header class="page-header" role="banner">
                         <h1 class="page-header__title"><i class="bi bi-collection"></i>Options Gallery</h1>
@@ -570,7 +583,6 @@
                     </div>
                 </div>
             </article>
-
         </section>
     </main>
 
