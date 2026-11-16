@@ -89,12 +89,12 @@
     }
 
     var sizeList = dataSet != null
-                ? dataSet.AsEnumerable()
-                           .Select(row => row.Field<string>("Size"))
-                           .Where(val => !string.IsNullOrWhiteSpace(val))
-                           .Distinct()
-                           .ToList()
-                : new List<string>();
+        ? dataSet.AsEnumerable()
+                   .Select(row => row.Field<string>("Size"))
+                   .Where(val => !string.IsNullOrWhiteSpace(val))
+                   .Distinct()
+                   .ToList()
+        : new List<string>();
 
     if (activeMetric == "MAX" && string.IsNullOrEmpty(selectedStoreGrades) && string.IsNullOrEmpty(selectedSizes))
     {

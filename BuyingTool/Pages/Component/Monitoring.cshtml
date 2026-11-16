@@ -14,10 +14,10 @@
 
     string label = "Monitoring to Exported to Alloc Tool";
 
-    if (dbResponse != "Success")
+    if (!string.IsNullOrEmpty(dbResponse))
     {
         label = "The System Couldn't Fetch Data from Database";
-    }
+    } 
 }
 <header role="banner">
     @RenderPage("~/Pages/Common/PageBanner.cshtml", label)
