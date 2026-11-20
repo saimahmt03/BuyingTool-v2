@@ -263,7 +263,9 @@ namespace BuyingTool.Services
 
         public void SaveSessionFiltersDB(string userid, SavedSessionFilters savedSessionFilters)
         {
-             _dBContext.SaveSessionFilters(userid,savedSessionFilters);
+            string cacheKey = $"SavedSessionFilters_{userid}";
+            _dBContext.SaveSessionFilters(userid,savedSessionFilters);
+            HttpRuntime.Cache.Remove(cacheKey);
 
             return;
         }

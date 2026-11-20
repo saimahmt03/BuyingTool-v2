@@ -416,8 +416,40 @@
             Session.Remove("SubCategory");
             Session.Remove("SizeGroup");
             Session.Remove("OrigSrp");
-
-            Session["DisplayDone"] = "False";
+            SavedSessionFilters savedSessionFilters = new SavedSessionFilters();
+            savedSessionFilters.UserID = Session["idnumber"].ToString();
+            savedSessionFilters.DateUpdated = DateTime.Now;
+            savedSessionFilters.Brand = "";
+            savedSessionFilters.Division = "";
+            savedSessionFilters.Category = "";
+            savedSessionFilters.Department = "";
+            savedSessionFilters.PeriodPlan = "";
+            savedSessionFilters.Collection = "";
+            savedSessionFilters.Style = "";
+            savedSessionFilters.StyleCode = "";
+            savedSessionFilters.Region = "";
+            savedSessionFilters.Country = "";
+            savedSessionFilters.Channel = "";
+            savedSessionFilters.Territory = "";
+            savedSessionFilters.Area = "";
+            savedSessionFilters.OutletType = "";
+            savedSessionFilters.SiteCode = "";
+            savedSessionFilters.SiteName = "";
+            savedSessionFilters.StoreGrade = "";
+            savedSessionFilters.Color = "";
+            savedSessionFilters.Silhouette = "";
+            savedSessionFilters.CollectionAttri = "";
+            savedSessionFilters.FitCut = "";
+            savedSessionFilters.MaterialComposition = "";
+            savedSessionFilters.MaterialConstruction = "";
+            savedSessionFilters.PrintTexture = "";
+            savedSessionFilters.SleeveType = "";
+            savedSessionFilters.StyleCollection = "";
+            savedSessionFilters.SubCategory = "";
+            savedSessionFilters.SizeGroup = "";
+            savedSessionFilters.OrigSrp = "";
+            service.SaveSessionFiltersDB(Session["idnumber"].ToString(), savedSessionFilters);
+            Session["DisplayDone"] = null;
 
         }
     }
