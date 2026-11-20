@@ -140,7 +140,6 @@ class MultiSelect {
                         let dataItem = this.data.find(d => String(d.value) === String(option.dataset.value));
                         if (dataItem && !dataItem.disabled && (!isSelected && !dataItem.selected || isSelected && dataItem.selected)) {
                             if (this.options.max && this.selectedValues.length >= this.options.max && !isSelected) return void (hitMax = !0);
-                            console.log(this.selectElement.options);
                             for (var i of this.selectElement.options) {
                                 i.selected = !i.selected;
                             }
