@@ -1,6 +1,7 @@
 ﻿@using System.Data;
 @using BuyingTool.Services
 @using System.Linq;
+@using BuyingTool.DTO.Request
 @{
     Service service = new Service();
 
@@ -189,10 +190,8 @@
                 Session["Department"] = department;
                 Session["PeriodPlan"] = selectedPeriodPlans;
                 Session["Collection"] = selectedCollection;
-
                 Session["Style"] = selectedStyle;
                 Session["StyleCode"] = selectedStyleCode;
-
                 Session["Region"] = selectedRegion;
                 Session["Country"] = selectedCountry;
                 Session["Channel"] = selectedChannel;
@@ -202,7 +201,6 @@
                 Session["SiteCode"] = selectedSiteCode;
                 Session["SiteName"] = selectedSiteName;
                 Session["StoreGrade"] = selectedStoreGrade;
-
                 Session["Color"] = selectedColor;
                 Session["Silhouette"] = selectedSilhouette;
                 Session["CollectionAttri"] = selectedCollectionAttri;
@@ -217,6 +215,39 @@
                 Session["SizeGroup"] = selectedSizeGroup;
                 Session["OrigSrp"] = selectedOrigSrp;
 
+                SavedSessionFilters savedSessionFilters = new SavedSessionFilters();
+                savedSessionFilters.UserID = Session["idnumber"].ToString();
+                savedSessionFilters.DateUpdated = DateTime.Now;
+                savedSessionFilters.Brand = brand;
+                savedSessionFilters.Division = division;
+                savedSessionFilters.Category = category;
+                savedSessionFilters.Department = department;
+                savedSessionFilters.PeriodPlan = selectedPeriodPlans;
+                savedSessionFilters.Collection = selectedCollection;
+                savedSessionFilters.Style = selectedStyle;
+                savedSessionFilters.StyleCode = selectedStyleCode;
+                savedSessionFilters.Region = selectedRegion;
+                savedSessionFilters.Country = selectedCountry;
+                savedSessionFilters.Channel = selectedChannel;
+                savedSessionFilters.Territory = selectedTerritory;
+                savedSessionFilters.Area = selectedArea;
+                savedSessionFilters.OutletType = selectedOutletType;
+                savedSessionFilters.SiteCode = selectedSiteCode;
+                savedSessionFilters.SiteName = selectedSiteName;
+                savedSessionFilters.StoreGrade = selectedStoreGrade;
+                savedSessionFilters.Color = selectedColor;
+                savedSessionFilters.Silhouette = selectedSilhouette;
+                savedSessionFilters.CollectionAttri = selectedCollectionAttri;
+                savedSessionFilters.FitCut = selectedFitCut;
+                savedSessionFilters.MaterialComposition = selectedMaterialComposition;
+                savedSessionFilters.MaterialConstruction = selectedMaterialConstruction;
+                savedSessionFilters.PrintTexture = selectedPrintTexture;
+                savedSessionFilters.SleeveType = selectedSleeveType;
+                savedSessionFilters.StyleCollection = selectedStyleCollection;
+                savedSessionFilters.SubCategory = selectedSubCategory;
+                savedSessionFilters.SizeGroup = selectedSizeGroup;
+                savedSessionFilters.OrigSrp = selectedOrigSrp;
+                service.SaveSessionFiltersDB(Session["idnumber"].ToString(), savedSessionFilters);
                 Response.Redirect("~/?tab=2.%20Review%20Summary");
             }
         }
@@ -308,6 +339,39 @@
                 Session["SizeGroup"] = selectedSizeGroup;
                 Session["OrigSrp"] = selectedOrigSrp;
 
+                SavedSessionFilters savedSessionFilters = new SavedSessionFilters();
+                savedSessionFilters.UserID = Session["idnumber"].ToString();
+                savedSessionFilters.DateUpdated = DateTime.Now;
+                savedSessionFilters.Brand = brand;
+                savedSessionFilters.Division = division;
+                savedSessionFilters.Category = category;
+                savedSessionFilters.Department = department;
+                savedSessionFilters.PeriodPlan = selectedPeriodPlans;
+                savedSessionFilters.Collection = selectedCollection;
+                savedSessionFilters.Style = selectedStyle;
+                savedSessionFilters.StyleCode = selectedStyleCode;
+                savedSessionFilters.Region = selectedRegion;
+                savedSessionFilters.Country = selectedCountry;
+                savedSessionFilters.Channel = selectedChannel;
+                savedSessionFilters.Territory = selectedTerritory;
+                savedSessionFilters.Area = selectedArea;
+                savedSessionFilters.OutletType = selectedOutletType;
+                savedSessionFilters.SiteCode = selectedSiteCode;
+                savedSessionFilters.SiteName = selectedSiteName;
+                savedSessionFilters.StoreGrade = selectedStoreGrade;
+                savedSessionFilters.Color = selectedColor;
+                savedSessionFilters.Silhouette = selectedSilhouette;
+                savedSessionFilters.CollectionAttri = selectedCollectionAttri;
+                savedSessionFilters.FitCut = selectedFitCut;
+                savedSessionFilters.MaterialComposition = selectedMaterialComposition;
+                savedSessionFilters.MaterialConstruction = selectedMaterialConstruction;
+                savedSessionFilters.PrintTexture = selectedPrintTexture;
+                savedSessionFilters.SleeveType = selectedSleeveType;
+                savedSessionFilters.StyleCollection = selectedStyleCollection;
+                savedSessionFilters.SubCategory = selectedSubCategory;
+                savedSessionFilters.SizeGroup = selectedSizeGroup;
+                savedSessionFilters.OrigSrp = selectedOrigSrp;
+                service.SaveSessionFiltersDB(Session["idnumber"].ToString(), savedSessionFilters);
                 Session["DisplayDone"] = "True";
             }
         }
