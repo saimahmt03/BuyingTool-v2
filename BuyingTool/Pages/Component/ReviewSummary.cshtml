@@ -17,7 +17,7 @@
 
     DataTable dataSet = service.GetFinalDataSetFilterCache().GetAwaiter().GetResult();
 
-    var tableNameList = new string[] { "Store Grade (Cummulative)", "Distribution Plan per Store Grade", "Territory (Cummulative)",
+    var tableNameList = new string[] { "Store Grade (Cumulative)", "Distribution Plan per Store Grade", "Territory (Cumulative)",
                                         "Distribution Plan per Territory", "Distribution Plan per Drops"};
 
     var selectedTable = string.Empty;
@@ -209,7 +209,7 @@
                 string userInputFileName = Request.Form["customFileName"];
                 string fileName = string.IsNullOrWhiteSpace(selectedTable) ? "report_summary" : selectedTable.Trim() + "_" + userInputFileName;
 
-                if (selectedTable == "Store Grade (Cummulative)")
+                if (selectedTable == "Store Grade (Cumulative)")
                 {
                     tableHeaders = tableHeaders1;
                     tableRows = tableRows1;
@@ -220,7 +220,7 @@
                     tableRows = tableRows3;
 
                 }
-                else if (selectedTable == "Territory (Cummulative)")
+                else if (selectedTable == "Territory (Cumulative)")
                 {
                     tableHeaders = tableHeaders2;
                     tableRows = tableRows2;
@@ -339,7 +339,7 @@
                 <!-- ROW 1: Store Grade Pair -->
                 <div class="dashboard-row">
                     <article class="panel-card cumulative-panel" aria-label="Store Grade Cumulative Panel">
-                        @RenderPage("~/Pages/Common/Header.cshtml", "Store Grade (Cummulative)")
+                        @RenderPage("~/Pages/Common/Header.cshtml", "Store Grade (Cumulative)")
                         <div class="table-responsive-wrapper">
                             @RenderPage("~/Pages/Common/Table.cshtml", tableHeaders1, tableRows1)
                         </div>
@@ -355,7 +355,7 @@
                 <!-- ROW 2: Territory Pair -->
                 <div class="dashboard-row">
                     <article class="panel-card cumulative-panel" aria-label="Territory Cumulative Panel">
-                        @RenderPage("~/Pages/Common/Header.cshtml", "Territory (Cummulative)")
+                        @RenderPage("~/Pages/Common/Header.cshtml", "Territory (Cumulative)")
                         <div class="table-responsive-wrapper">
                             @RenderPage("~/Pages/Common/Table.cshtml", tableHeaders2, tableRows2)
                         </div>

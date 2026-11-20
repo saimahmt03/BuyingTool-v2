@@ -96,28 +96,36 @@
         {
         if (r.Count == 0) { continue; }
 
-            <tr class="data-table__row">
-                @if (hasRowHeader)
-                {
-        // Render first column as a row header
-        var label = r[0];
-                    <th scope="row" class="data-table__label">@label</th>
+        <tr class="data-table__row">
+            @if (hasRowHeader)
+            {
+                // Render first column as a row header
+                var label = r[0];
+                <th scope="row" class="data-table__label">@label</th>
 
-                    // Render remaining columns as standard data cells
-    for (var i = 1; i < r.Count; i++)
-    {
-                        <td class="data-table__cell">@r[i]</td>
-                    }
+                // Render remaining columns as standard data cells
+                for (var i = 1; i < r.Count; i++)
+                {
+                    <td class="data-table__cell">@r[i]</td>
                 }
-                else
-    {
-        // Render all columns as standard data cells
-        foreach (var cell in r)
-        {
+            }
+            else
+            {
+                // Render all columns as standard data cells
+                foreach (var cell in r)
+                {
+                    int intresult;
+                    if (int.TryParse(cell.ToString(), out intresult))
+                    {
+                        <td class="data-table__cell">@intresult.ToString("N0")</td>
+                    }
+                    else
+                    {
                         <td class="data-table__cell">@cell</td>
                     }
                 }
-            </tr>
+            }
+        </tr>
         }
     </tbody>
 </table>

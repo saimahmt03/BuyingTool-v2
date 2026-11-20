@@ -144,31 +144,41 @@
                 bool isImageRow = r.Any(cell => cell != null && IsImagePath(cell.ToString()));
                 string rowClass = isImageRow ? "data-table__row data-table__row--image" : "data-table__row";
 
-                <tr class="@rowClass">
-                    @if (hasRowHeader)
-                    {
-                        var label = r[0];
-                        <th scope="row" class="data-table__label">
-                            @RenderCellContent(label)
-                        </th>
+            <tr class="@rowClass">
+                @if (hasRowHeader)
+                {
+                    var label = r[0];
+                    <th scope="row" class="data-table__label">
+                        @RenderCellContent(label)
+                    </th>
 
-                        for (var i = 1; i < r.Count; i++)
+                    for (var i = 1; i < r.Count; i++)
+                    {
+                        <td class="data-table__cell">
+                            @RenderCellContent(r[i])
+                        </td>
+                    }
+                }
+                else
+                {
+                    foreach (var cell in r)
+                    {
+                        int intresult;
+                        if (int.TryParse(cell.ToString(), out intresult))
                         {
                             <td class="data-table__cell">
-                                @RenderCellContent(r[i])
+                                @RenderCellContent(intresult.ToString("N0"))
                             </td>
                         }
-                    }
-                    else
-                    {
-                        foreach (var cell in r)
+                        else
                         {
                             <td class="data-table__cell">
                                 @RenderCellContent(cell)
                             </td>
                         }
                     }
-                </tr>
+                }
+            </tr>
             }
         </tbody>
     </table>

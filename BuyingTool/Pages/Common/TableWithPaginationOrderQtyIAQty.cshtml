@@ -99,25 +99,33 @@
             {
                 if (r.Count == 0) { continue; }
 
-                <tr class="data-table__row">
-                    @if (hasRowHeader)
-                    {
-                        var label = r[0];
-                        <th scope="row" class="data-table__label">@label</th>
+            <tr class="data-table__row">
+                @if (hasRowHeader)
+                {
+                    var label = r[0];
+                    <th scope="row" class="data-table__label">@label</th>
 
-                        for (var i = 1; i < r.Count; i++)
-                        {
-                            <td class="data-table__cell">@r[i]</td>
-                        }
-                    }
-                    else
+                    for (var i = 1; i < r.Count; i++)
                     {
-                        foreach (var cell in r)
+                        <td class="data-table__cell">@r[i]</td>
+                    }
+                }
+                else
+                {
+                    foreach (var cell in r)
+                    {
+                        int intresult;
+                        if (int.TryParse(cell.ToString(), out intresult))
+                        {
+                            <td class="data-table__cell">@intresult.ToString("N0")</td>
+                        }
+                        else
                         {
                             <td class="data-table__cell">@cell</td>
                         }
                     }
-                </tr>
+                }
+            </tr>
             }
         </tbody>
     </table>
