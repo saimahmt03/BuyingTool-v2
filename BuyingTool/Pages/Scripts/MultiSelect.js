@@ -140,7 +140,12 @@ class MultiSelect {
                         let dataItem = this.data.find(d => String(d.value) === String(option.dataset.value));
                         if (dataItem && !dataItem.disabled && (!isSelected && !dataItem.selected || isSelected && dataItem.selected)) {
                             if (this.options.max && this.selectedValues.length >= this.options.max && !isSelected) return void (hitMax = !0);
-                            option.click()
+                            console.log(this.selectElement.options);
+                            for (var i of this.selectElement.options) {
+                                i.selected = !i.selected;
+                            }
+                            this.selectElement = new MultiSelect(this.selectElement);
+                            //option.click()
                         }
                     }
                 }), this._isBatching = !1, this._updateSelected(), this._syncOriginalSelect(), this.options.closeListOnItemSelect && (this.options.search && (this.element.querySelector(".multi-select-search").value = "", this.element.querySelectorAll(".multi-select-option, .multi-select-group").forEach(opt => opt.style.display = "flex")), toggleDropdown(!0)), hitMax && this.options.onMaxReached(this.options.max)
