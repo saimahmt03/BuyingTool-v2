@@ -373,15 +373,13 @@
 
                     <article class="panel-card cumulative-panel" aria-label="Override Drops Quantity Panel">
                         @RenderPage("~/Pages/Common/Header.cshtml", "Override Drops Quantity?")
-                        <div class="row">
-                            <div class="three-col">
+                        <div class="row" style="place-content: center;height:100%;">
+                            @RenderPage("~/Pages/Common/TextField.cshtml", "override", "Value", "", "numeric")
+                            <div class="two-col">
                                 <div class="col-1">
-                                    @RenderPage("~/Pages/Common/TextField.cshtml", "override", "Value", "", "numeric")
-                                </div>
-                                <div class="col-2">
                                     <button class="button" type="submit" name="actionButton" value="Go"><i class="bi bi-arrow-right-short"></i>Go</button>
                                 </div>
-                                <div class="col-3">
+                                <div class="col-2">
                                     <button class="button" type="submit" name="actionButton" value="Reset"><i class="bi bi-arrow-counterclockwise"></i>Reset</button>
                                 </div>
                             </div>
