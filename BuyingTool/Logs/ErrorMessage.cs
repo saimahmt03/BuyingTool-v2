@@ -19,6 +19,7 @@ namespace BuyingTool.Logs
         public const string StoregradeAndSize = "Final Dataset Store Grade and Size Filter. ";
 
         public const string SortReference = "Sort Reference. ";
+        public const string SessionFilters = "Session Filters. ";
 
         public const string PeriodPlan = "Period Plan Filter. ";
         public const string OptionGallery = "Option Gallery. ";

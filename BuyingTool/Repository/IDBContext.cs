@@ -9,7 +9,7 @@ using BuyingTool.Data;
 using BuyingTool.Shared;
 using System.Threading.Tasks;
 using System.Xml.Linq;
-
+using BuyingTool.DTO.Request;
 
 namespace BuyingTool.Repository
 {
@@ -27,6 +27,9 @@ namespace BuyingTool.Repository
         Task<DataTable> GetFiltersStyles(string idnumber);
         
         Task<DataTable> GetFinalDataSetFilter(string idnumber);
+        DataTable GetSavedSessionFilters(string idnumber);
+
+        void SaveSessionFilters(string idnumber, SavedSessionFilters savedSessionFilters);
 
 
         Task<DataTable> GetSortReference();
