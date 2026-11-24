@@ -203,6 +203,14 @@ namespace BuyingTool.Services
 
             for (int colIndex = 1; colIndex < totalAttributes; colIndex++)
             {
+                if (oldHeaders[colIndex] == "UserID")
+                {
+                    continue;
+                }
+                else if (oldHeaders[colIndex] == "Option_Key")
+                {
+                    oldHeaders[colIndex] = "Option";
+                }
                 var attributeRow = new List<string> { oldHeaders[colIndex] };
                 foreach (var oldRow in oldRows)
                 {

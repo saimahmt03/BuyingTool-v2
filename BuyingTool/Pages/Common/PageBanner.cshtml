@@ -1,10 +1,15 @@
-﻿@{ // How to call:
+﻿
+@using BuyingTool.Services
+@{ // How to call:
     //   @RenderPage("~/Pages/Component/PageHeader.cshtml", "Filters Window")
     //
     //   title : text shown in the band
 
+    Service service = new Service();
     var title = PageData[0] as string;
     string userId = Session["idnumber"] as string;
+    string userName = service.GetUsername(userId);
+
     var date = DateTime.Now.ToString("MMMM dd, yyyy");
 }
 
@@ -12,5 +17,5 @@
 <div class="page-banner">
     <label class="page-banner-title">@title</label>
     <label class="page-banner-date">@date</label>
-    <label class="page-banner-uid"><i class="bi bi-person-circle"></i>@userId</label>
+    <label class="page-banner-uid"><i class="bi bi-person-circle"></i>@userName</label>
 </div>

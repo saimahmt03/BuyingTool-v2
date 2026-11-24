@@ -172,6 +172,57 @@ namespace BuyingTool.Repository
             return Task.FromResult((response, logMessage));
         }
 
+        public string GetUsername(string idnumber)
+        {
+            string result="";
+            try
+            {
+                using (DbConnection connection = _databaseConnection.CreateConnection())
+                {
+                    if (connection == null)
+                    {
+                        throw new InvalidOperationException("The database connection could not be created because CreateConnection() returned null.");
+                    }
+
+                    if (connection.State != ConnectionState.Open)
+                    {
+                        connection.Open();
+                    }
+
+                    using (DbCommand command = connection.CreateCommand())
+                    {
+                        command.CommandText = "SELECT TOP (1) [User Profile] from [INTERIM_BUYING_TOOL].[dbo].[Auth] where [USERID2] = " + idnumber;
+                        command.CommandType = CommandType.Text;
+
+                        DbProviderFactory factory;
+                        string errorMessage = _databaseConnection.TryGetDbProviderFactory(out factory);
+
+                        if (!string.IsNullOrEmpty(errorMessage))
+                        {
+                            throw new InvalidOperationException(errorMessage);
+                        }
+
+                        command.Parameters.Add(DatabaseParameterHelper.CreateParameter("@USERID", idnumber, DbType.String, factory));
+                        DataTable dataTable = new DataTable();
+                        using (DbDataReader reader = command.ExecuteReader())
+                        {
+                            dataTable.Load(reader);
+                        }
+                        result = dataTable.Rows[0]["User Profile"].ToString() ;
+                    }
+                }
+            }
+            catch (DbException ex)
+            {
+                LogHelper.LogError(ErrorMessage.Db + ErrorMessage.Attribute, ex);
+            }
+            catch (Exception ex)
+            {
+                LogHelper.LogError(ErrorMessage.Sys + ErrorMessage.Attribute, ex);
+            }
+
+            return result;
+        }
         #endregion
 
         #region FILTERS

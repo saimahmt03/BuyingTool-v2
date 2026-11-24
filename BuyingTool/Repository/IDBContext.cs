@@ -32,6 +32,7 @@ namespace BuyingTool.Repository
         void SaveSessionFilters(string idnumber, SavedSessionFilters savedSessionFilters);
 
 
+        string GetUsername(string idnumber);
         Task<DataTable> GetSortReference();
 
 

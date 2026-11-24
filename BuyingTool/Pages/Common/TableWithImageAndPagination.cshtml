@@ -144,41 +144,66 @@
                 bool isImageRow = r.Any(cell => cell != null && IsImagePath(cell.ToString()));
                 string rowClass = isImageRow ? "data-table__row data-table__row--image" : "data-table__row";
 
-            <tr class="@rowClass">
-                @if (hasRowHeader)
-                {
-                    var label = r[0];
-                    <th scope="row" class="data-table__label">
-                        @RenderCellContent(label)
-                    </th>
+                <tr class="@rowClass">
+                    @if (hasRowHeader)
+                    {
+                        var label = r[0];
+                        <th scope="row" class="data-table__label">
+                            @RenderCellContent(label)
+                        </th>
 
-                    for (var i = 1; i < r.Count; i++)
-                    {
-                        <td class="data-table__cell">
-                            @RenderCellContent(r[i])
-                        </td>
-                    }
-                }
-                else
-                {
-                    foreach (var cell in r)
-                    {
-                        int intresult;
-                        if (int.TryParse(cell.ToString(), out intresult))
+                        for (var i = 1; i < r.Count; i++)
                         {
                             <td class="data-table__cell">
-                                @RenderCellContent(intresult.ToString("N0"))
-                            </td>
+                                @{
+                                    var cell = r[i];
+                                    int intresult;
+                                    decimal decresult;
+                                    Console.Write(decimal.TryParse(cell.ToString(), out decresult));
+                                    if (int.TryParse(cell.ToString(), out intresult))
+                                    {
+                                        @RenderCellContent(intresult.ToString("N0"))
+                                }
+                                else if (decimal.TryParse(cell.ToString(), out decresult))
+                                {
+                                        @RenderCellContent(decresult.ToString("#,##0.00"))
+                                }
+                                else
+                                {
+                                        @RenderCellContent(cell)
+                                }
+                                }
+                                </td>
+                            }
                         }
                         else
                         {
-                            <td class="data-table__cell">
-                                @RenderCellContent(cell)
-                            </td>
+                            foreach (var cell in r)
+                            {
+                                int intresult;
+                                decimal decresult;
+                                Console.Write(decimal.TryParse(cell.ToString(), out decresult));
+                                if (int.TryParse(cell.ToString(), out intresult))
+                                {
+                                    <td class="data-table__cell">
+                                        @RenderCellContent(intresult.ToString("N0"))
+                                    </td>
+                                }
+                                else if (decimal.TryParse(cell.ToString(), out decresult))
+                                {
+                                    <td class="data-table__cell">
+                                        @RenderCellContent(decresult.ToString("#,##0.00"))
+                                    </td>
+                                }
+                                else
+                                {
+                                    <td class="data-table__cell">
+                                        @RenderCellContent(cell)
+                                    </td>
+                                }
+                            }
                         }
-                    }
-                }
-            </tr>
+                </tr>
             }
         </tbody>
     </table>

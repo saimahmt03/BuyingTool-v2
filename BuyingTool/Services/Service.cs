@@ -49,6 +49,31 @@ namespace BuyingTool.Services
             }
             return null;
         }
+
+        public string GetUsername(string userid)
+        {
+            // Make the cache key unique to the specific user
+
+            string cacheKey = $"Username_{userid}";
+
+            string result = HttpRuntime.Cache[cacheKey] as string;
+
+            if (result == null)
+            {
+                result = _dBContext.GetUsername(userid);
+
+                HttpRuntime.Cache.Insert(
+                    cacheKey,
+                    result,
+                    null,
+                    System.Web.Caching.Cache.NoAbsoluteExpiration,
+                    TimeSpan.FromMinutes(30)
+                );
+            }
+
+            return result;
+        }
+
         #endregion
 
 
