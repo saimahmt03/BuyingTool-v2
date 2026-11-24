@@ -199,17 +199,17 @@
     else
     {
         // --- VIEW 2: DASHBOARD TABS (Loads Main.cshtml when Session[idnumber] is active) ---
-         String activeTab = Request.QueryString["tab"];
+         var activeTab = Request.QueryString["tab"];
         if (string.IsNullOrWhiteSpace(activeTab))
         {
             activeTab = "1. Set Filters";
         }
 
-         String sidebarCss = System.IO.File
+         var sidebarCss = System.IO.File
             .GetLastWriteTime(Server.MapPath("~/Pages/Style/sidebar.css"))
             .Ticks.ToString();
 
-         String indexCss = System.IO.File
+         var indexCss = System.IO.File
             .GetLastWriteTime(Server.MapPath("~/Pages/Style/index.css"))
             .Ticks.ToString();
 
