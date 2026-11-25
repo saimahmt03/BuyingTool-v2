@@ -205,10 +205,12 @@ namespace BuyingTool.Services
             {
                 if (oldHeaders[colIndex] == "UserID")
                 {
+                    //hardcode dont show userid, ideally removed from the table to begin with.
                     continue;
                 }
                 else if (oldHeaders[colIndex] == "Option_Key")
                 {
+                    //hardcode replace option key with option, ideally should be renamed in the db.
                     oldHeaders[colIndex] = "Option";
                 }
                 var attributeRow = new List<string> { oldHeaders[colIndex] };

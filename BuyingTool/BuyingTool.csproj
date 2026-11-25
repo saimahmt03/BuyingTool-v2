@@ -283,6 +283,7 @@
     <Content Include="Pages\Style\login.css" />
     <Content Include="Pages\Style\main.css" />
     <Content Include="Pages\Style\panel.css" />
+    <Content Include="Pages\Style\PasswordReset.css" />
     <Content Include="Pages\Style\review-site-details.css" />
     <Content Include="Pages\Style\review-summary.css" />
     <Content Include="Pages\Style\sectionheader.css" />

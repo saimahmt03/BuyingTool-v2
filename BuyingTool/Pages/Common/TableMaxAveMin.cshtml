@@ -17,6 +17,7 @@
     var MaxList = new List<string>();
     var AvgList = new List<string>();
     var MinList = new List<string>();
+    var sortorderindex = 999;
     for (int i = 0; i < headerList.Count; i++)
     {
         var split = headerList[i].ToString().Split('_');
@@ -36,7 +37,13 @@
                     break;
             }
         }
+        //hardcode hide sortorder table, ideally it shouldnt be returned by the sp
+        if(headerList[i].ToString()== "SortOrder")
+        {
+            sortorderindex = i;
+        }
     }
+
     var rowList = new List<List<object>>();
     if (rows != null)
     {
@@ -112,17 +119,22 @@
             else
             {
                 // Render all columns as standard data cells
+                var counter =0;
                 foreach (var cell in r)
                 {
-                    int intresult;
-                    if (int.TryParse(cell.ToString(), out intresult))
+                    if (counter != sortorderindex)
                     {
+                        int intresult;
+                        if (int.TryParse(cell.ToString(), out intresult))
+                        {
                         <td class="data-table__cell">@intresult.ToString("N0")</td>
-                    }
-                    else
-                    {
+                        }
+                        else
+                        {
                         <td class="data-table__cell">@cell</td>
+                        }
                     }
+                    counter++;
                 }
             }
         </tr>
