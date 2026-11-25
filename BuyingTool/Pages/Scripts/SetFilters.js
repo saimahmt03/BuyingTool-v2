@@ -99,6 +99,7 @@ $(document).ready(function () {
         },
         success: function (data) {
             stylesTable = data;
+            //required inner join styles
         }
     });
     const attributeapicall = $.ajax({
@@ -121,7 +122,7 @@ $(document).ready(function () {
         },
         success: function (data) {
             organizationTable = data;
-            //ORGANIZATION : brand
+            //ORGANIZATION : brand inner join
         }
     });
     const periodplanapicall = $.ajax({
@@ -1095,6 +1096,32 @@ function processMultiSelect(element, set) {
     }
     element = new MultiSelect(element);
 };
+function onlyAddMultiSelect(element, set) {
+    var SelectedList = new Set();
+    while (element.length > 0) {
+        if (element.options[0].selected) {
+            SelectedList.add(element.options[0].value)
+        }
+        set.add(element.options[0].value);
+        element.remove(0);
+    }
+    set = new Set([...set].sort());
+    let counter = 0;
+    for (let value of set) {
+        if (value != null && value != 'null' && value != '') {
+            element.options[counter] = new Option(value, value);
+            if (SelectedList.has(value.toString())) {
+                element.options[counter].selected = true;
+            }
+            counter++;
+        }
+    }
+    element = new MultiSelect(element);
+};
+const getColumn = (anArray, columnName) =>
+    anArray.map(row => row[columnName]);
+
+//#endregion
 //#region field specific sorting
 
 function processBrand(element, set) {
@@ -1674,52 +1701,7 @@ function onlyAddStoreGrade(element, set) {
 };
 
 //#endregion
-function onlyAddMultiSelect(element, set) {
-    var SelectedList = new Set();
-    while (element.length > 0) {
-        if (element.options[0].selected) {
-            SelectedList.add(element.options[0].value)
-        }
-        set.add(element.options[0].value);
-        element.remove(0);
-    }
-    set = new Set([...set].sort());
-    let counter = 0;
-    for (let value of set) {
-        if (value != null && value != 'null' && value != '') {
-            element.options[counter] = new Option(value, value);
-            if (SelectedList.has(value.toString())) {
-                element.options[counter].selected = true;
-            }
-            counter++;
-        }
-    }
-    element = new MultiSelect(element);
-};
 
-function populateSelect(value, element) {
-    if (value != '') {
-        element.options.add(new Option(value, value));
-        element.value = value;
-    }
-}
-
-function populateMultiSelect(list, element) {
-    let counter = 0;
-    for (let value in list) {
-        if (list[value] != '') {
-            element.options[counter] = new Option(list[value], list[value]);
-            element.options[counter].selected = true;
-        }
-        counter++;
-    }
-    element = new MultiSelect(element);
-}
-
-const getColumn = (anArray, columnName) =>
-    anArray.map(row => row[columnName]);
-
-//#endregion
 //#region get saved data
 function getSessionRequiredSavedData() {
     let sessionBrand = document.getElementById('sessionBrand');
@@ -1824,6 +1806,24 @@ function getSessionAttributesSavedData() {
     populateMultiSelect(sessionSubCategory, subcategory);
     populateMultiSelect(sessionSizeGroup, sizegroup);
     populateMultiSelect(sessionOrigSrp, origsrp);
+}
+function populateSelect(value, element) {
+    if (value != '') {
+        element.options.add(new Option(value, value));
+        element.value = value;
+    }
+}
+
+function populateMultiSelect(list, element) {
+    let counter = 0;
+    for (let value in list) {
+        if (list[value] != '') {
+            element.options[counter] = new Option(list[value], list[value]);
+            element.options[counter].selected = true;
+        }
+        counter++;
+    }
+    element = new MultiSelect(element);
 }
 //#endregion
 

@@ -16,6 +16,7 @@ namespace BuyingTool.Repository
     public interface IDBContext
     {
         Task<(string response, string dbResponse)> AccountVerification(string idnumber, string pass);
+        Task<(string response, string dbResponse)> ResetPassword(string idnumber, string currentpw, string newpw);
 
 
         Task<DataTable> GetFiltersAttribute(string idnumber);
