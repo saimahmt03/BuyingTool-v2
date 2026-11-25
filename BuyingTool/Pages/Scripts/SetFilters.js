@@ -77,7 +77,7 @@ $(document).ready(function () {
                     case 'Territory':
                         territorySortReference.set(data[i]['FieldValue'], data[i]['FieldOrder']);
                         break;
-            }
+                }
             }
         }
     });
@@ -134,7 +134,7 @@ $(document).ready(function () {
             periodPlanTable = data;
         }
     });
-    $.when(requiredapicall, styleapicall, attributeapicall, organizationapicall, periodplanapicall, sortreferenceapicall).then(function() {
+    $.when(requiredapicall, styleapicall, attributeapicall, organizationapicall, periodplanapicall, sortreferenceapicall).then(function () {
 
         getSessionRequiredSavedData();
         getSessionAttributesSavedData();
@@ -173,9 +173,9 @@ $(document).ready(function () {
 });
 //#region button behavior
 function changeFilter(element) {
-   /* for (i = 0; i < id.length;i++) {
-        console.log(id.options[i].value);
-    }*/
+    /* for (i = 0; i < id.length;i++) {
+         console.log(id.options[i].value);
+     }*/
 
     ShowLoader();
     switch (element.id) {
@@ -253,7 +253,7 @@ function buildRequiredFilterTable() {
     var category = document.getElementById('dd_category');
     var collection = document.getElementById('dd_collection');
     let selectedValues = Array.from(collection.selectedOptions).map(option => option.value);
-    filteredRequiredTable =  requiredTable.filter(row =>
+    filteredRequiredTable = requiredTable.filter(row =>
         (brand.value == '' || row.Brand == brand.value) &&
         (division.value == '' || row.Division == division.value) &&
         (department.value == '' || row.Department == department.value) &&
@@ -262,7 +262,7 @@ function buildRequiredFilterTable() {
     );
 };
 
-function setRequiredFilterTable(excludestring ='') {
+function setRequiredFilterTable(excludestring = '') {
     var brand = document.getElementById('dd_brand');
     var division = document.getElementById('dd_division');
     var department = document.getElementById('dd_department');
@@ -494,7 +494,8 @@ function buildStylesFilterTable() {
         (selectedCollections.length == 0 || (selectedCollections.length == 1 && selectedCollections[0] == '') || selectedCollections.includes(row.Collection))/*&&
         (selectedStyles.length == 0 || (selectedStyles.length == 1 && selectedStyles[0] == '') || selectedStyles.includes(row.Style))&&
         (selectedStyleCodes.length == 0 || (selectedStyleCodes.length == 1 && selectedStyleCodes[0] == '') || selectedStyleCodes.includes(row.Style_Code))*/
-    );};
+    );
+};
 
 function setStylesFilterTable(excludestring) {
 
@@ -753,8 +754,8 @@ function setAttributesFilterTable(element = '') {
         sizegroupset.add(filteredAttributesTable[i].SizeGroup);
         origsrpset.add(filteredAttributesTable[i]['Orig SRP']);
     }
-    var attributesList = ['dd_color', 'dd_silhouette', 'dd_collectionattri', 'dd_fitcut', 'dd_materialcomposition', 'dd_materialconstruction', 'dd_printtexture', 'dd_productline', 'dd_sleevetype', 'dd_stylecollection', 'dd_subcategory', 'dd_sizegroup','dd_origsrp'];
-    if (element != '' &&attributesList.includes(element)) {
+    var attributesList = ['dd_color', 'dd_silhouette', 'dd_collectionattri', 'dd_fitcut', 'dd_materialcomposition', 'dd_materialconstruction', 'dd_printtexture', 'dd_productline', 'dd_sleevetype', 'dd_stylecollection', 'dd_subcategory', 'dd_sizegroup', 'dd_origsrp'];
+    if (element != '' && attributesList.includes(element)) {
         var colorset2 = new Set();
         var silhouetteset2 = new Set();
         var collectionattriset2 = new Set();
@@ -957,7 +958,7 @@ function setOrganizationFilterTable(element = '') {
         siteNameset.add(filteredOrganizationTable[i]['Site Name']);
         storeGradeset.add(filteredOrganizationTable[i]['Store Grade']);
     }
-    var organizationList = ['dd_region', 'dd_country', 'dd_channel', 'dd_territory', 'dd_area', 'dd_outletType', 'dd_siteCode', 'dd_siteName','dd_storeGrade'];
+    var organizationList = ['dd_region', 'dd_country', 'dd_channel', 'dd_territory', 'dd_area', 'dd_outletType', 'dd_siteCode', 'dd_siteName', 'dd_storeGrade'];
     if (element != '' && organizationList.includes(element)) {
         var regionset2 = new Set();
         var countryset2 = new Set();
@@ -1046,10 +1047,10 @@ function processSelect(element, set) {
     while (element.length > 0) {
         element.remove(0);
     }
-    element.options[0] = new Option('-- Select --','');
+    element.options[0] = new Option('-- Select --', '');
     let counter = 1;
     for (let value of set) {
-        if (value != null && value != 'null'&& value !='') {
+        if (value != null && value != 'null' && value != '') {
             element.options[counter] = new Option(value, value);
             counter++;
         }
@@ -1066,7 +1067,7 @@ function onlyAddSelect(element, set) {
     element.options[0] = new Option('-- Select --', '');
     let counter = 1;
     for (let value of set) {
-        if (value != null && value != 'null' &&value !='') {
+        if (value != null && value != 'null' && value != '') {
             element.options[counter] = new Option(value, value);
             counter++;
         }
@@ -1698,7 +1699,7 @@ function onlyAddMultiSelect(element, set) {
 
 function populateSelect(value, element) {
     if (value != '') {
-        element.options.add( new Option(value, value));
+        element.options.add(new Option(value, value));
         element.value = value;
     }
 }
