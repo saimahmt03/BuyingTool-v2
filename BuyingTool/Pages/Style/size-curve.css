@@ -48,7 +48,9 @@ body {
     flex-direction: column;
     gap: 10px;
 }
-
+table{
+    font-size:11px;
+}
 /* Fully responsive table scroll wrapper */
 .table-responsive-wrapper {
     width: 100%;

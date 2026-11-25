@@ -199,19 +199,19 @@
     else
     {
         // --- VIEW 2: DASHBOARD TABS (Loads Main.cshtml when Session[idnumber] is active) ---
-         var activeTab = Request.QueryString["tab"];
+        var activeTab = Request.QueryString["tab"];
         if (string.IsNullOrWhiteSpace(activeTab))
         {
             activeTab = "1. Set Filters";
         }
 
-         var sidebarCss = System.IO.File
-            .GetLastWriteTime(Server.MapPath("~/Pages/Style/sidebar.css"))
-            .Ticks.ToString();
+        var sidebarCss = System.IO.File
+           .GetLastWriteTime(Server.MapPath("~/Pages/Style/sidebar.css"))
+           .Ticks.ToString();
 
-         var indexCss = System.IO.File
-            .GetLastWriteTime(Server.MapPath("~/Pages/Style/index.css"))
-            .Ticks.ToString();
+        var indexCss = System.IO.File
+           .GetLastWriteTime(Server.MapPath("~/Pages/Style/index.css"))
+           .Ticks.ToString();
 
         <link href="~/Pages/Style/sidebar.css?v=@sidebarCss" rel="stylesheet" />
         <link href="~/Pages/Style/index.css?v=@indexCss" rel="stylesheet" />
@@ -275,39 +275,39 @@
         else
         {
             <p id="calculationdone" hidden>false</p>
-            }
-        String sessionBrand="";
-        String sessionDivision="";
-        String sessionCategory="";
-        String sessionDepartment="";
-        String sessionPeriodPlan="";
-        String sessionCollection="";
-        String sessionStyle="";
-        String sessionStyleCode="";
+        }
+        String sessionBrand = "";
+        String sessionDivision = "";
+        String sessionCategory = "";
+        String sessionDepartment = "";
+        String sessionPeriodPlan = "";
+        String sessionCollection = "";
+        String sessionStyle = "";
+        String sessionStyleCode = "";
 
-        String sessionRegion="";
-        String sessionCountry="";
-        String sessionChannel="";
-        String sessionTerritory="";
-        String sessionArea="";
-        String sessionOutletType="";
-        String sessionSiteCode="";
-        String sessionSiteName="";
-        String sessionStoreGrade="";
+        String sessionRegion = "";
+        String sessionCountry = "";
+        String sessionChannel = "";
+        String sessionTerritory = "";
+        String sessionArea = "";
+        String sessionOutletType = "";
+        String sessionSiteCode = "";
+        String sessionSiteName = "";
+        String sessionStoreGrade = "";
 
-        String sessionColor="";
-        String sessionSilhouette="";
-        String sessionCollectionAttri="";
-        String sessionFitCut="";
-        String sessionMaterialComposition="";
-        String sessionMaterialConstruction="";
-        String sessionPrintTexture="";
-        String sessionProductLine="";
-        String sessionSleeveType="";
-        String sessionStyleCollection="";
-        String sessionSubCategory="";
-        String sessionSizeGroup="";
-        String sessionOrigSrp="";
+        String sessionColor = "";
+        String sessionSilhouette = "";
+        String sessionCollectionAttri = "";
+        String sessionFitCut = "";
+        String sessionMaterialComposition = "";
+        String sessionMaterialConstruction = "";
+        String sessionPrintTexture = "";
+        String sessionProductLine = "";
+        String sessionSleeveType = "";
+        String sessionStyleCollection = "";
+        String sessionSubCategory = "";
+        String sessionSizeGroup = "";
+        String sessionOrigSrp = "";
         if ((Session["CalculationDone"] != null || Session["DisplayDone"] != null) && Session["idnumber"] != null)
         {
             sessionBrand = Session["Brand"].ToString();
@@ -343,7 +343,7 @@
             sessionSizeGroup = Session["SizeGroup"].ToString();
             sessionOrigSrp = Session["OrigSrp"].ToString();
         }
-        else
+        else if (Session["idnumber"] != null)
         {
             DataTable dataTable = service.GetSavedSessionFilters(idnumberforlabel.ToString());
             foreach (DataRow row in dataTable.Rows)
@@ -382,7 +382,7 @@
                 sessionOrigSrp = row["OrigSrp"].ToString();
             }
         }
-        }
+    }
 
     <label hidden id="idnumber">@idnumberforlabel</label>
 

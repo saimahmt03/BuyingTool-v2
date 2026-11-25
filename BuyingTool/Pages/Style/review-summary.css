@@ -149,7 +149,8 @@ header {
     max-width: 100%;
     -webkit-overflow-scrolling: touch;
     height:100%;
-    place-content:center;
+    align-content:start;
+    justify-content:center;
 }
 
 /* =================================================================
@@ -232,7 +233,7 @@ header {
 .panel-card.cumulative-panel > *:first-child *,
 .panel-card[aria-label="Store Grade Cumulative Panel"] header *,
 .panel-card[aria-label="Territory Cumulative Panel"] header * {
-    font-size: 13.5px !important; /* Reduced 1.5 steps lower from the 18px general rule */
+    font-size: 13.5px; /* Reduced 1.5 steps lower from the 18px general rule */
 }
 
 /* =================================================================
