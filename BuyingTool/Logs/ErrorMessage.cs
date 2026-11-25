@@ -11,6 +11,7 @@ namespace BuyingTool.Logs
         public const string Sys = "System Error in ";
 
         public const string Login = "Login. ";
+        public const string PasswordReset = "Password Reset. ";
 
         public const string Attribute = "Attribute Filter Region. ";
         public const string Organization = "Organization Filter Region. ";

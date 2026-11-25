@@ -308,7 +308,7 @@ namespace BuyingTool.Services
         #endregion
 
 
-        #region Account Verification
+        #region Account 
 
         // Account Verification
         public bool AccountVerification(string idnumber, string pass)
@@ -327,7 +327,18 @@ namespace BuyingTool.Services
 
             return false;
         }
-
+        public bool ResetPassword (string idnumber, string oldpw, string newpw, string newpw2)
+        {
+            if (newpw == newpw2)
+            {
+                var (response, dbResponse) = _dBContext.ResetPassword(idnumber, oldpw, newpw).GetAwaiter().GetResult(); 
+                if (response == "")
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
         #endregion
 
 

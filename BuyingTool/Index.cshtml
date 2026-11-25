@@ -263,6 +263,12 @@
                     @RenderPage("~/Pages/Component/Monitoring.cshtml", activeTab)
                 </section>
             }
+            else if (activeTab == "Password Reset")
+            {
+                <section id="tab-size-curve" class="tab-pane" aria-label="Size Curve">
+                    @RenderPage("~/Pages/Component/PasswordReset.cshtml", activeTab)
+                </section>
+            }
         </main>
     }
 

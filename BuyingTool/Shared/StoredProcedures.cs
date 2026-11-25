@@ -7,10 +7,13 @@ namespace BuyingTool.Shared
 {
     public class StoredProcedures
     {
-        #region ACCOUNT VERIFICATION
+        #region ACCOUNT
         
         // Account Virefication
         public const string AccoutVerification = "[dbo].[usp_Login]";
+
+        //password reset
+        public const string ChangePassword = "[dbo].[usp_ChangePassword]";
 
         #endregion
 

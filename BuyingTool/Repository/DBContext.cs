@@ -171,6 +171,65 @@ namespace BuyingTool.Repository
 
             return Task.FromResult((response, logMessage));
         }
+        public Task<(string response, string dbResponse)> ResetPassword(string idnumber, string currentpw, string newpw)
+        {
+            string logMessage = string.Empty;
+            var response = string.Empty;
+
+            try
+            {
+                using (DbConnection connection = _databaseConnection.CreateConnection())
+                {
+                    // Explicitly check if the connection object was successfully created
+                    if (connection == null)
+                    {
+                        throw new InvalidOperationException("The database connection could not be created because CreateConnection() returned null.");
+                    }
+
+                    if (connection.State != ConnectionState.Open)
+                    {
+                        connection.Open();
+                    }
+
+                    using (DbCommand command = connection.CreateCommand())
+                    {
+                        command.CommandText = StoredProcedures.ChangePassword;
+                        command.CommandType = CommandType.StoredProcedure;
+
+                        DbProviderFactory factory;
+                        string errorMessage = _databaseConnection.TryGetDbProviderFactory(out factory);
+
+                        if (!string.IsNullOrEmpty(errorMessage))
+                        {
+                            throw new InvalidOperationException(errorMessage);
+                        }
+
+                        command.Parameters.Add(DatabaseParameterHelper.CreateParameter("@USERID", idnumber, DbType.String, factory));
+                        command.Parameters.Add(DatabaseParameterHelper.CreateParameter("@OLDPASSWORD", currentpw, DbType.String, factory));
+                        command.Parameters.Add(DatabaseParameterHelper.CreateParameter("@NEWPASSWORD", newpw, DbType.String, factory));
+
+                        // Execute the command and capture the single string response
+                        object result = command.ExecuteScalar();
+
+                        if (result != null && result != DBNull.Value)
+                        {
+                            response = result.ToString();
+                        }
+                    }
+                }
+            }
+            catch (DbException ex)
+            {
+                logMessage = ex.Message;
+                LogHelper.LogError(ErrorMessage.Db + ErrorMessage.PasswordReset, ex);
+            }
+            catch (Exception ex)
+            {
+                logMessage = ex.Message;
+                LogHelper.LogError(ErrorMessage.Sys + ErrorMessage.PasswordReset, ex);
+            }
+            return Task.FromResult((response, logMessage));
+        }
 
         public string GetUsername(string idnumber)
         {
