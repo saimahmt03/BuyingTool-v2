@@ -53,13 +53,16 @@ header {
 .gallery-panel {
     flex: 2;
     min-width: 0;
-    overflow-x: auto;
+    overflow-x: none;
     background-color: var(--panel-bg);
     border: 2px solid var(--panel-border);
     padding: 8px;
     border-radius: 15px;
 }
-
+.overflow-handler{
+    width:fit-content;
+    overflow-x:auto;
+}
 /* Responsive Table Scroll Container */
 .table-responsive {
     width: 100%;

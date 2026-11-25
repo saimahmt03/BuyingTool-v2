@@ -43,7 +43,8 @@
     flex-direction: column;
     position: relative;
     width: 100%;
-    user-select: none
+    user-select: none;
+    min-width: 100px !important;
 }
 
     .multi-select .multi-select-header {
@@ -64,7 +65,6 @@
             top: 50%;
             right: 1rem;
             transform: translateY(-50%);
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23949ba3' viewBox='0 0 16 16'%3E%3Cpath d='M8 13.1l-8-8 2.1-2.2 5.9 5.9 5.9-5.9 2.1 2.2z'/%3E%3C/svg%3E");
             height: var(--icon-size);
             width: var(--icon-size)
         }

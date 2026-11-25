@@ -11,6 +11,10 @@
     left: var(--sb-collapsed-w);
     width: calc( 100% - 60px);
     padding:5px;
+    transition:all 0.3s ease;
+}
+.page-banner-pinned{
+    left:var(--sb-expanded-w);
 }
 .page-banner-title {
     padding: 8px;

@@ -666,16 +666,18 @@
             }
             <!-- RIGHT SIDEBAR: OPTIONS GALLERY PANEL -->
             <article class="gallery-panel" id="options-gallery-panel" aria-label="Options Gallery Panel">
-                <div class="row">
-                    <header class="page-header" role="banner">
-                        <h1 class="page-header__title"><i class="bi bi-collection"></i>Options Gallery</h1>
-                    </header>
-                    <div class="table-responsive">
-                        <!-- Unchanged: tableHeaders/tableRows are restored from Session in the code block above -->
-                        <!---RenderPage("~/Pages/Common/TableWithImageAndPagination.cshtml", tableHeaders, tableRows, true, 21)-->
+                <div class="overflow-handler">
+                    <div class="row">
+                        <header class="page-header" role="banner">
+                            <h1 class="page-header__title"><i class="bi bi-collection"></i>Options Gallery</h1>
+                        </header>
+                        <div class="table-responsive">
+                            <!-- Unchanged: tableHeaders/tableRows are restored from Session in the code block above -->
+                            <!---RenderPage("~/Pages/Common/TableWithImageAndPagination.cshtml", tableHeaders, tableRows, true, 21)-->
 
-                        @RenderPage("~/Pages/Common/TableWithImageAndPagination.cshtml", transposedHeaders, transposedRows, true, 10)
+                            @RenderPage("~/Pages/Common/TableWithImageAndPagination.cshtml", transposedHeaders, transposedRows, true, 10)
 
+                        </div>
                     </div>
                 </div>
             </article>
