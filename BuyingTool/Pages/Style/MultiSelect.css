@@ -23,7 +23,7 @@
     --input-outline-invalid: rgba(219, 138, 138, 0.5);
     --input-color: #e9e9ed;
     --input-disabled: #f7f7f7;
-    --option-background: #f3f4f7;
+    --option-background: #E4E5E8;
     --checkbox-border: #ced4da;
     --checkbox-background: #ffffff;
     --checkbox-active: #ffffff;
@@ -191,7 +191,7 @@
 
         .multi-select .multi-select-options .multi-select-all {
             border-bottom: 1px solid var(--border-color-light);
-            border-radius: 0
+            border-radius: 8px;
         }
 
         .multi-select .multi-select-options .multi-select-group {

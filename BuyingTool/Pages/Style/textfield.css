@@ -42,5 +42,6 @@
     }
 
 .textfield:focus-within {
-    outline: 2px solid var(--main-dark);
+    border: 2px solid var(--main-dark);
+    outline:none;
 }

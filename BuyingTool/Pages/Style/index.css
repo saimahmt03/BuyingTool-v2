@@ -196,6 +196,7 @@ tr:hover {
     -webkit-appearance: none;
     -moz-appearance: none;
     height: fit-content;
+    outline:none;
 }
 
     .dropdown__select:hover {
