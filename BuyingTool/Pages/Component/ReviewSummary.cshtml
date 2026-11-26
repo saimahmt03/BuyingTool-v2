@@ -373,9 +373,17 @@
 
                     <article class="panel-card cumulative-panel" aria-label="Override Drops Quantity Panel">
                         @RenderPage("~/Pages/Common/Header.cshtml", "Override Drops Quantity?")
-                        <div class="row" style="place-content: center;height:100%;">
-                            @RenderPage("~/Pages/Common/TextField.cshtml", "override", "Value", "", "numeric")
-                            <div class="two-col">
+
+                        <div class="override-container" style="place-content: center;height:100%;">
+                            <div class="textfield override-textfield">
+                                <label class="textfield__label override-label" for="tf_override">Value</label>
+                                <input class="textfield__input override-input" type="text" id="tf_override" name="override" value="" inputmode="numeric" autocomplete="off">
+                            </div>
+                            <div class="tooltip">
+                                <i class="bi bi-info-circle"></i>
+                                <span class="tooltiptext">Override to adjust total quantity while maintaining distribution curve</span>
+                            </div>
+                            <div class="two-col override-buttons">
                                 <div class="col-1">
                                     <button class="button" type="submit" name="actionButton" value="Go"><i class="bi bi-arrow-right-short"></i>Go</button>
                                 </div>
