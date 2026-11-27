@@ -1,13 +1,14 @@
-﻿var requiredTable = [];
-var stylesTable = [];
-var organizationTable = [];
-var periodPlanTable = [];
-var attributesTable = [];
-var filteredRequiredTable = [];
+﻿var filteredRequiredTable = [];
 var filteredStylesTable = [];
 var filteredOrganizationTable = [];
 var filteredAttributesTable = [];
 var filteredPeriodPlanTable = [];
+var requiredTable = [];
+var stylesTable = [];
+var organizationTable = [];
+var periodPlanTable = [];
+var attributesTable = [];
+//#region sortreference
 var areaSortReference = new Map();
 var brandSortReference = new Map();
 var channelSortReference = new Map();
@@ -20,25 +21,8 @@ var styleSortReference = new Map();
 var styleCodeSortReference = new Map();
 var territorySortReference = new Map();
 
-HTMLSelectElement.prototype.contains = function (value) {
-    for (var i = 0, l = this.options.length; i < l; i++) {
-        if (this.options[i].value == value) {
-            return true;
-        }
-    }
-    return false;
-}
-$(document).ready(function () {
-    ShowLoader();
-    var url = window.location.origin;
-    var requiredapiurl = "/api/RequiredFilters";
-    var idnumber = document.getElementById('idnumber').innerHTML;
-    var styleapiurl = "/api/StyleFilters";
-    var attributeapiurl = "/api/AttributeFilters";
-    var organizationapiurl = "/api/OrganizationFilters";
-    var periodplanapiurl = "/api/PeriodPlanFilters";
-    var sortreferenceapiurl = "/api/SortReference";
-    const sortreferenceapicall = $.ajax({
+function sortreferenceapicall() {
+    return $.ajax({
         url: url + sortreferenceapiurl,
         method: "GET",
         success: function (data) {
@@ -80,62 +64,253 @@ $(document).ready(function () {
                 }
             }
         }
-    });
-    const requiredapicall = $.ajax({
-        url: url + requiredapiurl,
-        method: "GET",
-        data: {
-            "idnumber": idnumber,
-        },
-        success: function (data) {
-            requiredTable = data;
-        }
-    });
-    const styleapicall = $.ajax({
-        url: url + styleapiurl,
-        method: "GET",
-        data: {
-            "idnumber": idnumber,
-        },
-        success: function (data) {
-            stylesTable = data;
-            //required inner join styles
-        }
-    });
-    const attributeapicall = $.ajax({
-        url: url + attributeapiurl,
-        method: "GET",
-        data: {
-            "idnumber": idnumber,
-        },
-        success: function (data) {
-            attributesTable = data;
-            //ATTRIBUTES: styles inner join
-        }
-    });
+    })
+};
 
-    const organizationapicall = $.ajax({
-        url: url + organizationapiurl,
+//#endregion
+//#region api urls
+var url = window.location.origin;
+var requiredapiurl = "/api/RequiredFilters";
+var idnumber = "";
+var styleapiurl = "/api/StyleFilters";
+var attributeapiurl = "/api/AttributeFilters";
+var organizationapiurl = "/api/OrganizationFilters";
+var periodplanapiurl = "/api/PeriodPlanFilters";
+var sortreferenceapiurl = "/api/SortReference";
+
+//auth required
+var brandsauthapiurl = "/api/Authorizations/GetAuthorizedBrands";
+var departmentsauthapiurl = "/api/Authorizations/GetAuthorizedDepartments";
+var divisionsauthapiurl = "/api/Authorizations/GetAuthorizedDivisions";
+
+//auth organization
+var areasauthapiurl = "/api/Authorizations/GetAuthorizedAreas";
+var channelsauthapiurl = "/api/Authorizations/GetAuthorizedChannels";
+var countriesauthapiurl = "/api/Authorizations/GetAuthorizedCountries";
+var regionsauthapiurl = "/api/Authorizations/GetAuthorizedRegions";
+var territoriesauthapiurl = "/api/Authorizations/GetAuthorizedTerritories";
+//#endregion
+//#region authorization stuff
+//auth for required
+function getauthbrands() {
+    return $.ajax({
+        url: url + brandsauthapiurl,
+        method: "GET",
+        data: {
+            "idnumber": idnumber,
+        },
+    })
+};
+function getauthdepartments() {
+    return $.ajax({
+        url: url + departmentsauthapiurl,
+        method: "GET",
+        data: {
+            "idnumber": idnumber,
+        },
+    })
+};
+function getauthdivisions() {
+    return $.ajax({
+        url: url + divisionsauthapiurl,
+        method: "GET",
+        data: {
+            "idnumber": idnumber,
+        },
+    })
+};
+
+//auth for organization
+function getauthareas() {
+    return $.ajax({
+        url: url + areasauthapiurl,
         method: "GET",
         data: {
             "idnumber": idnumber,
         },
         success: function (data) {
-            organizationTable = data;
-            //ORGANIZATION : brand inner join
+            authareas = new Set(data);
         }
     });
-    const periodplanapicall = $.ajax({
-        url: url + periodplanapiurl,
+};
+function getauthchannels() {
+    return $.ajax({
+        url: url + channelsauthapiurl,
         method: "GET",
         data: {
             "idnumber": idnumber,
         },
         success: function (data) {
-            periodPlanTable = data;
+            authchannels = new Set(data);
         }
-    });
-    $.when(requiredapicall, styleapicall, attributeapicall, organizationapicall, periodplanapicall, sortreferenceapicall).then(function () {
+    })
+};
+function getauthcountries() {
+    return $.ajax({
+        url: url + countriesauthapiurl,
+        method: "GET",
+        data: {
+            "idnumber": idnumber,
+        },
+        success: function (data) {
+            authcountries = new Set(data);
+        }
+    })
+};
+function getauthregions() {
+    return $.ajax({
+        url: url + regionsauthapiurl,
+        method: "GET",
+        data: {
+            "idnumber": idnumber,
+        },
+        success: function (data) {
+            authregions = new Set(data);
+        }
+    })
+};
+function getauthterritories() {
+    return $.ajax({
+        url: url + territoriesauthapiurl,
+        method: "GET",
+        data: {
+            "idnumber": idnumber,
+        },
+        success: function (data) {
+            authterritories = new Set(data);
+        }
+    })
+};
+//#endregion
+//#region api call functions for filters
+function requiredapicall() {
+    if (requiredTable.length == 0) {
+        return $.ajax({
+            url: url + requiredapiurl,
+            method: "GET",
+            data: {
+                "idnumber": idnumber,
+            },
+            success: function (data) {
+                $.when(getauthbrands(), getauthdepartments(), getauthdivisions()).done(
+                    function (authbrand, authdept, authdivisions) {
+
+                        var authbrandset = new Set(authbrand[0]);
+                        var authdeptset = new Set(authdept[0]);
+                        var authdivisionset = new Set(authdivisions[0]);
+                        for (var dataiterator = 0; dataiterator < data.length; dataiterator++) {
+                            if (authbrandset.has(data[dataiterator]["Brand"]) && authdeptset.has(data[dataiterator]["Department"]) && authdivisionset.has(data[dataiterator]["Division"])) {
+                                requiredTable.push(data[dataiterator]);
+                            }
+                        }
+                    }
+                );
+            }
+        })
+    }
+    else {
+        return;
+    }
+};
+function styleapicall() {
+    if (stylesTable.length == 0) {
+        return $.ajax({
+            url: url + styleapiurl,
+            method: "GET",
+            data: {
+                "idnumber": idnumber,
+            },
+            success: function (data) {
+                stylesTable = data;
+                //required inner join styles
+            }
+        })
+    }
+    else {
+        return;
+    }
+};
+function attributeapicall() {
+    if (attributesTable.length == 0) {
+        return $.ajax({
+            url: url + attributeapiurl,
+            method: "GET",
+            data: {
+                "idnumber": idnumber,
+            },
+            success: function (data) {
+                attributesTable = data;
+                //ATTRIBUTES: styles inner join
+            }
+        })
+    }
+    else {
+        return;
+    }
+};
+function organizationapicall() {
+    if (organizationTable.length == 0) {
+        return $.ajax({
+            url: url + organizationapiurl,
+            method: "GET",
+            data: {
+                "idnumber": idnumber,
+            },
+            success: function (data) {
+                //organizationTable = data;
+                //ORGANIZATION : brand inner join
+                $.when(getauthareas(), getauthchannels(), getauthcountries(), getauthregions(), getauthterritories()).done(
+                    function (authareas, authchannels, authcountries, authregions, authterritories) {
+                        var authareaset = new Set(authareas[0]);
+                        var authchannelset = new Set(authchannels[0]);
+                        var authcountrieset = new Set(authcountries[0]);
+                        var authregionset = new Set(authregions[0]);
+                        var authterritorieset = new Set(authterritories[0]);
+
+                        for (var dataiterator = 0; dataiterator < data.length; dataiterator++) {
+                            if (
+                                authareaset.has(data[dataiterator]["Area"]) &&
+                                authchannelset.has(data[dataiterator]["Channel"]) &&
+                                authcountrieset.has(data[dataiterator]["Country"]) &&
+                                authregionset.has(data[dataiterator]["Region"]) &&
+                                authterritorieset.has(data[dataiterator]["Territory"])
+                            ) {
+                                organizationTable.push(data[dataiterator]);
+                            }
+                        }
+                    }
+                );
+            }
+        })
+    }
+    else {
+        return;
+    }
+};
+function periodplanapicall() {
+    if (periodPlanTable.length == 0) {
+        return $.ajax({
+            url: url + periodplanapiurl,
+            method: "GET",
+            data: {
+                "idnumber": idnumber,
+            },
+            success: function (data) {
+                periodPlanTable = data;
+            }
+        })
+    } else {
+        return;
+    }
+};
+//#endregion
+
+$(document).ready(function () {
+    ShowLoader();
+
+
+    //some things here are called in index.js to share the loading time between two pages
+    $.when(requiredapicall(), styleapicall(), attributeapicall(), organizationapicall(), periodplanapicall(), sortreferenceapicall()).done(function () {
 
         getSessionRequiredSavedData();
         getSessionAttributesSavedData();
@@ -161,12 +336,14 @@ $(document).ready(function () {
     let displaydone = document.getElementById('displaydone');
     if (displaydone.innerHTML != 'true') {
         let gallery = document.getElementById('options-gallery-panel');
-        gallery.style.display = 'none';
+        gallery.style.flex = '1';
     }
     else {
         let gallery = document.getElementById('options-gallery-panel');
-        gallery.style.display = 'flex';
+        gallery.style.flex = '2';
     }
+
+    //make filters resize according to window size
     resizeFilters();
     window.addEventListener('resize', () => {
         resizeFilters();
@@ -1830,7 +2007,7 @@ function populateMultiSelect(list, element) {
 function resizeFilters() {
     let panel = document.getElementById('filters-panel');
     let twocolumnthing = document.getElementById('twocolumnthing');
-    if (panel.clientWidth > 600) {
+    if (panel.clientWidth > 530) {
         panel.style.flexDirection = 'row';
         twocolumnthing.style.flexDirection = 'row';
     }

@@ -45,12 +45,13 @@ header {
     width: 700px;
     background-color: var(--panel-bg);
     border: 2px solid var(--panel-border);
-    padding: 12px;
+    padding: 8px;
     border-radius:15px;
 }
 
 /* Right Main Options Gallery Panel - Expands to fill the remaining dashboard space */
 .gallery-panel {
+    display:flex;
     flex: 2;
     min-width: 0;
     overflow-x: none;
@@ -72,7 +73,7 @@ header {
 
 /* Reusable Filter Group Spacing */
 .filter-group {
-    margin: 15px;
+    margin: 10px 4px 10px 4px;
     border-radius: 15px;
     border: 2px solid var(--multiselect-border);
     padding: 12px;
@@ -116,7 +117,7 @@ header {
 
 .filter-group label,
 .filter-group .control-label {
-    flex: 0 0 100px;
+    flex: 0 0 80px;
     text-align: left;
     padding-right: 6px;
     white-space: nowrap;
