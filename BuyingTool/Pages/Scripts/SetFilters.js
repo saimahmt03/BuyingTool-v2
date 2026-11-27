@@ -307,6 +307,7 @@ function periodplanapicall() {
 
 $(document).ready(function () {
     ShowLoader();
+    idnumber = document.getElementById('idnumber').innerHTML;
 
 
     //some things here are called in index.js to share the loading time between two pages
