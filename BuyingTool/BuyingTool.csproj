@@ -262,7 +262,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\Site.css" />
     <Content Include="Pages\Scripts\Index.js" />
     <Content Include="Global.asax" />
     <Content Include="Pages\Scripts\JQuery4.js" />
@@ -362,8 +361,6 @@
     <Content Include="Pages\Common\TableWithPaginationOrderQtyIAQty.cshtml" />
     <Content Include="Pages\Component\SideBar.cshtml" />
     <Content Include="Pages\Common\PageBanner.cshtml" />
-    <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Pages\Common\testview.cshtml" />
     <Content Include="Pages\Component\PasswordReset.cshtml" />
     <None Include="Web.Debug.config">
