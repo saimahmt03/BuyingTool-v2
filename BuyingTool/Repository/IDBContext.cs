@@ -18,7 +18,14 @@ namespace BuyingTool.Repository
         Task<(string response, string dbResponse)> AccountVerification(string idnumber, string pass);
         Task<(string response, string dbResponse)> ResetPassword(string idnumber, string currentpw, string newpw);
 
-
+        DataTable GetAuthorizedBrands(string idnumber);
+        DataTable GetAuthorizedDivisions(string idnumber);
+        DataTable GetAuthorizedDepartments(string idnumber);
+        DataTable GetAuthorizedRegions(string idnumber);
+        DataTable GetAuthorizedCountries(string idnumber);
+        DataTable GetAuthorizedChannels(string idnumber);
+        DataTable GetAuthorizedTerritories(string idnumber);
+        DataTable GetAuthorizedAreas(string idnumber);
         Task<DataTable> GetFiltersAttribute(string idnumber);
         
         Task<DataTable> GetFiltersOrganization(string idnumber);

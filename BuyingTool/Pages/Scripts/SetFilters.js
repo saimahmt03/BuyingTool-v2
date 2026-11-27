@@ -1,13 +1,16 @@
-﻿var requiredTable = [];
-var stylesTable = [];
-var organizationTable = [];
-var periodPlanTable = [];
-var attributesTable = [];
+﻿//dynamic tables filtered based on what is selected
 var filteredRequiredTable = [];
 var filteredStylesTable = [];
 var filteredOrganizationTable = [];
 var filteredAttributesTable = [];
 var filteredPeriodPlanTable = [];
+//static tables set only once
+var requiredTable = [];
+var stylesTable = [];
+var organizationTable = [];
+var periodPlanTable = [];
+var attributesTable = [];
+//#region sortreference
 var areaSortReference = new Map();
 var brandSortReference = new Map();
 var channelSortReference = new Map();
@@ -20,25 +23,8 @@ var styleSortReference = new Map();
 var styleCodeSortReference = new Map();
 var territorySortReference = new Map();
 
-HTMLSelectElement.prototype.contains = function (value) {
-    for (var i = 0, l = this.options.length; i < l; i++) {
-        if (this.options[i].value == value) {
-            return true;
-        }
-    }
-    return false;
-}
-$(document).ready(function () {
-    ShowLoader();
-    var url = window.location.origin;
-    var requiredapiurl = "/api/RequiredFilters";
-    var idnumber = document.getElementById('idnumber').innerHTML;
-    var styleapiurl = "/api/StyleFilters";
-    var attributeapiurl = "/api/AttributeFilters";
-    var organizationapiurl = "/api/OrganizationFilters";
-    var periodplanapiurl = "/api/PeriodPlanFilters";
-    var sortreferenceapiurl = "/api/SortReference";
-    const sortreferenceapicall = $.ajax({
+function sortreferenceapicall() {
+    return $.ajax({
         url: url + sortreferenceapiurl,
         method: "GET",
         success: function (data) {
@@ -80,98 +66,378 @@ $(document).ready(function () {
                 }
             }
         }
-    });
-    const requiredapicall = $.ajax({
-        url: url + requiredapiurl,
-        method: "GET",
-        data: {
-            "idnumber": idnumber,
-        },
-        success: function (data) {
-            requiredTable = data;
-        }
-    });
-    const styleapicall = $.ajax({
-        url: url + styleapiurl,
-        method: "GET",
-        data: {
-            "idnumber": idnumber,
-        },
-        success: function (data) {
-            stylesTable = data;
-            //required inner join styles
-        }
-    });
-    const attributeapicall = $.ajax({
-        url: url + attributeapiurl,
-        method: "GET",
-        data: {
-            "idnumber": idnumber,
-        },
-        success: function (data) {
-            attributesTable = data;
-            //ATTRIBUTES: styles inner join
-        }
-    });
+    })
+};
 
-    const organizationapicall = $.ajax({
-        url: url + organizationapiurl,
-        method: "GET",
-        data: {
-            "idnumber": idnumber,
-        },
-        success: function (data) {
-            organizationTable = data;
-            //ORGANIZATION : brand inner join
-        }
-    });
-    const periodplanapicall = $.ajax({
-        url: url + periodplanapiurl,
-        method: "GET",
-        data: {
-            "idnumber": idnumber,
-        },
-        success: function (data) {
-            periodPlanTable = data;
-        }
-    });
-    $.when(requiredapicall, styleapicall, attributeapicall, organizationapicall, periodplanapicall, sortreferenceapicall).then(function () {
+//#endregion
+//#region api urls
+var url = window.location.origin;
+var requiredapiurl = "/api/RequiredFilters";
+var idnumber = "";
+var styleapiurl = "/api/StyleFilters";
+var attributeapiurl = "/api/AttributeFilters";
+var organizationapiurl = "/api/OrganizationFilters";
+var periodplanapiurl = "/api/PeriodPlanFilters";
+var sortreferenceapiurl = "/api/SortReference";
 
+//auth required
+var brandsauthapiurl = "/api/Authorizations/GetAuthorizedBrands";
+var departmentsauthapiurl = "/api/Authorizations/GetAuthorizedDepartments";
+var divisionsauthapiurl = "/api/Authorizations/GetAuthorizedDivisions";
+
+//auth organization
+var areasauthapiurl = "/api/Authorizations/GetAuthorizedAreas";
+var channelsauthapiurl = "/api/Authorizations/GetAuthorizedChannels";
+var countriesauthapiurl = "/api/Authorizations/GetAuthorizedCountries";
+var regionsauthapiurl = "/api/Authorizations/GetAuthorizedRegions";
+var territoriesauthapiurl = "/api/Authorizations/GetAuthorizedTerritories";
+//#endregion
+//#region authorization stuff
+//auth for required
+function getauthbrands() {
+    return $.ajax({
+        url: url + brandsauthapiurl,
+        method: "GET",
+        data: {
+            "idnumber": idnumber,
+        },
+    })
+};
+function getauthdepartments() {
+    return $.ajax({
+        url: url + departmentsauthapiurl,
+        method: "GET",
+        data: {
+            "idnumber": idnumber,
+        },
+    })
+};
+function getauthdivisions() {
+    return $.ajax({
+        url: url + divisionsauthapiurl,
+        method: "GET",
+        data: {
+            "idnumber": idnumber,
+        },
+    })
+};
+
+//auth for organization
+function getauthareas() {
+    return $.ajax({
+        url: url + areasauthapiurl,
+        method: "GET",
+        data: {
+            "idnumber": idnumber,
+        },
+        success: function (data) {
+            authareas = new Set(data);
+        }
+    });
+};
+function getauthchannels() {
+    return $.ajax({
+        url: url + channelsauthapiurl,
+        method: "GET",
+        data: {
+            "idnumber": idnumber,
+        },
+        success: function (data) {
+            authchannels = new Set(data);
+        }
+    })
+};
+function getauthcountries() {
+    return $.ajax({
+        url: url + countriesauthapiurl,
+        method: "GET",
+        data: {
+            "idnumber": idnumber,
+        },
+        success: function (data) {
+            authcountries = new Set(data);
+        }
+    })
+};
+function getauthregions() {
+    return $.ajax({
+        url: url + regionsauthapiurl,
+        method: "GET",
+        data: {
+            "idnumber": idnumber,
+        },
+        success: function (data) {
+            authregions = new Set(data);
+        }
+    })
+};
+function getauthterritories() {
+    return $.ajax({
+        url: url + territoriesauthapiurl,
+        method: "GET",
+        data: {
+            "idnumber": idnumber,
+        },
+        success: function (data) {
+            authterritories = new Set(data);
+        }
+    })
+};
+//#endregion
+//#region api call functions for filters
+function requiredapicall() {
+    if (requiredTable.length == 0) {
+        return $.ajax({
+            url: url + requiredapiurl,
+            method: "GET",
+            data: {
+                "idnumber": idnumber,
+            },
+            success: function (data) {
+                $.when(getauthbrands(), getauthdepartments(), getauthdivisions()).done(
+                    function (authbrand, authdept, authdivisions) {
+
+                        var authbrandset = new Set(authbrand[0]);
+                        var authdeptset = new Set(authdept[0]);
+                        var authdivisionset = new Set(authdivisions[0]);
+                        for (var dataiterator = 0; dataiterator < data.length; dataiterator++) {
+                            if (authbrandset.has(data[dataiterator]["Brand"]) && authdeptset.has(data[dataiterator]["Department"]) && authdivisionset.has(data[dataiterator]["Division"])) {
+                                requiredTable.push(data[dataiterator]);
+                            }
+                        }
+                    }
+                );
+            }
+        })
+    }
+    else {
+        return;
+    }
+};
+function styleapicall() {
+    if (stylesTable.length == 0) {
+        return $.ajax({
+            url: url + styleapiurl,
+            method: "GET",
+            data: {
+                "idnumber": idnumber,
+            },
+            success: function (data) {
+                stylesTable = data;
+                //required inner join styles
+            }
+        })
+    }
+    else {
+        return;
+    }
+};
+function attributeapicall() {
+    if (attributesTable.length == 0) {
+        return $.ajax({
+            url: url + attributeapiurl,
+            method: "GET",
+            data: {
+                "idnumber": idnumber,
+            },
+            success: function (data) {
+                attributesTable = data;
+                //ATTRIBUTES: styles inner join
+            }
+        })
+    }
+    else {
+        return;
+    }
+};
+function organizationapicall() {
+    if (organizationTable.length == 0) {
+        return $.ajax({
+            url: url + organizationapiurl,
+            method: "GET",
+            data: {
+                "idnumber": idnumber,
+            },
+            success: function (data) {
+                //organizationTable = data;
+                //ORGANIZATION : brand inner join
+                $.when(getauthareas(), getauthchannels(), getauthcountries(), getauthregions(), getauthterritories()).done(
+                    function (authareas, authchannels, authcountries, authregions, authterritories) {
+                        var authareaset = new Set(authareas[0]);
+                        var authchannelset = new Set(authchannels[0]);
+                        var authcountrieset = new Set(authcountries[0]);
+                        var authregionset = new Set(authregions[0]);
+                        var authterritorieset = new Set(authterritories[0]);
+
+                        for (var dataiterator = 0; dataiterator < data.length; dataiterator++) {
+                            if (
+                                authareaset.has(data[dataiterator]["Area"]) &&
+                                authchannelset.has(data[dataiterator]["Channel"]) &&
+                                authcountrieset.has(data[dataiterator]["Country"]) &&
+                                authregionset.has(data[dataiterator]["Region"]) &&
+                                authterritorieset.has(data[dataiterator]["Territory"])
+                            ) {
+                                organizationTable.push(data[dataiterator]);
+                            }
+                        }
+                    }
+                );
+            }
+        })
+    }
+    else {
+        return;
+    }
+};
+function periodplanapicall() {
+    if (periodPlanTable.length == 0) {
+        return $.ajax({
+            url: url + periodplanapiurl,
+            method: "GET",
+            data: {
+                "idnumber": idnumber,
+            },
+            success: function (data) {
+                periodPlanTable = data;
+            }
+        })
+    } else {
+        return;
+    }
+};
+//#endregion
+
+$(document).ready(function () {
+    ShowLoader();
+    idnumber = document.getElementById('idnumber').innerHTML;
+
+    $.when(requiredapicall(), styleapicall(), attributeapicall(), organizationapicall(), periodplanapicall(), sortreferenceapicall()).done(function () {
+
+        //sets based on session data
         getSessionRequiredSavedData();
         getSessionAttributesSavedData();
         getSessionStyleSavedData();
         getSessionOrganizationSavedData();
 
+        //initial filtering based on what the user has access to
+        initialFilter();
+        setValueIfOnlyOneIsAccessible();
+
+        //builds static tables
         buildRequiredFilterTable();
         buildStylesFilterTable();
         buildAttributesFilterTable();
         buildOrganizationFilterTable();
+
+
+        //builds filtertables based on static tables
         setRequiredFilterTable();
         setStylesFilterTable();
         setAttributesFilterTable();
         setOrganizationFilterTable();
         setPeriodPlanTable();
 
-        let sessionPeriodPlan = document.getElementById('sessionPeriodPlan');
-        let periodplan = document.getElementById('dd_periodplans');
-        periodplan.value = sessionPeriodPlan.innerHTML;
 
         HideLoader();
     });
     let displaydone = document.getElementById('displaydone');
     if (displaydone.innerHTML != 'true') {
         let gallery = document.getElementById('options-gallery-panel');
-        gallery.style.display = 'none';
+        gallery.style.flex = '1';
     }
     else {
         let gallery = document.getElementById('options-gallery-panel');
-        gallery.style.display = 'flex';
+        gallery.style.flex = '2';
     }
+
+    //make filters resize according to window size
     resizeFilters();
     window.addEventListener('resize', () => {
         resizeFilters();
     });
 });
+//#region initial actions
+function initialFilter() {
+    //shrink styles and attributes based on what you have permission to access
+    let selectedBrands = getColumn(requiredTable, 'Brand');
+    let selectedDivisions = getColumn(requiredTable, 'Division');
+    let selectedDepts = getColumn(requiredTable, 'Department');
+    selectedBrands = new Set(selectedBrands);
+    selectedDivisions = new Set(selectedDivisions);
+    selectedDepts = new Set(selectedDepts);
+    stylesTable = stylesTable.filter(row =>
+    (
+        selectedBrands.has(row.Brand) &&
+        selectedDivisions.has(row.Division) &&
+        selectedDepts.has(row.Department)
+    ));
+    let selectedStyles = getColumn(stylesTable, 'Style');
+    selectedStyles = new Set(selectedStyles);
+    attributesTable = attributesTable.filter(row =>
+        (selectedStyles.has(row.Style))
+    );
+};
+function setValueIfOnlyOneIsAccessible() {
+    var brand = document.getElementById('dd_brand');
+    var division = document.getElementById('dd_division');
+    var department = document.getElementById('dd_department');
+    var region = document.getElementById('dd_region');
+    var country = document.getElementById('dd_country');
+    var channel = document.getElementById('dd_channel');
+    var territory = document.getElementById('dd_territory');
+    var area = document.getElementById('dd_area');
+    let availableBrands = getColumn(requiredTable, 'Brand');
+    let availableDivisions = getColumn(requiredTable, 'Division');
+    let availableDepts = getColumn(requiredTable, 'Department');
+    let availableRegions = getColumn(organizationTable, 'Region');
+    let availableCountries = getColumn(organizationTable, 'Country');
+    let availableChannels = getColumn(organizationTable, 'Channel');
+    let availableTerritories = getColumn(organizationTable, 'Territory');
+    let availableAreas = getColumn(organizationTable, 'Area');
+    availableBrands = new Set(availableBrands);
+    availableDivisions = new Set(availableDivisions);
+    availableDepts = new Set(availableDepts);
+    availableRegions = new Set(availableRegions);
+    availableCountries = new Set(availableCountries);
+    availableChannels = new Set(availableChannels);
+    availableTerritories = new Set(availableTerritories);
+    availableAreas = new Set(availableAreas);
+    if (availableBrands.size == 1) {
+        let arr = Array.from(availableBrands);
+        populateSelect(arr[0], brand);
+    }
+    if (availableDivisions.size == 1) {
+        let arr = Array.from(availableDivisions);
+        populateSelect(arr[0], division);
+    }
+    if (availableDepts.size == 1) {
+        let arr = Array.from(availableDepts);
+        populateSelect(arr[0], department);
+    }
+    if (availableRegions.size == 1) {
+        let arr = Array.from(availableRegions);
+        populateMultiSelect(arr, region);
+    }
+    if (availableCountries.size == 1) {
+        let arr = Array.from(availableCountries);
+        populateMultiSelect(arr, country);
+    }
+    if (availableChannels.size == 1) {
+        let arr = Array.from(availableChannels);
+        populateMultiSelect(arr, channel);
+    }
+    if (availableTerritories.size == 1) {
+        let arr = Array.from(availableTerritories);
+        populateMultiSelect(arr, territory);
+    }
+    if (availableAreas.size == 1) {
+        let arr = Array.from(availableAreas);
+        populateMultiSelect(arr, area);
+    }
+
+}
+//#endregion
+
 //#region button behavior
 function changeFilter(element) {
     /* for (i = 0; i < id.length;i++) {
@@ -247,6 +513,8 @@ function changeStyle(element) {
     HideLoader();
 };
 //#endregion
+
+//#region main filter logic
 function buildRequiredFilterTable() {
     var brand = document.getElementById('dd_brand');
     var division = document.getElementById('dd_division');
@@ -254,12 +522,14 @@ function buildRequiredFilterTable() {
     var category = document.getElementById('dd_category');
     var collection = document.getElementById('dd_collection');
     let selectedValues = Array.from(collection.selectedOptions).map(option => option.value);
+    selectedValues = new Set(selectedValues);
+    //simply filter by whats selected in required
     filteredRequiredTable = requiredTable.filter(row =>
         (brand.value == '' || row.Brand == brand.value) &&
         (division.value == '' || row.Division == division.value) &&
         (department.value == '' || row.Department == department.value) &&
         (category.value == '' || row.Category == category.value) &&
-        (selectedValues.length == 0 || (selectedValues.length == 1 && selectedValues[0] == '') || selectedValues.includes(row.Collection))
+        (selectedValues.size == 0 || (selectedValues.size == 1 && selectedValues.has('')) || selectedValues.has(row.Collection))
     );
 };
 
@@ -274,6 +544,7 @@ function setRequiredFilterTable(excludestring = '') {
     var departmentset = new Set();
     var categoryset = new Set();
     var collectionset = new Set();
+    //build filter table
     for (var i = 0; i < filteredRequiredTable.length; i++) {
         brandset.add(filteredRequiredTable[i].Brand);
         divisionset.add(filteredRequiredTable[i].Division);
@@ -281,15 +552,17 @@ function setRequiredFilterTable(excludestring = '') {
         categoryset.add(filteredRequiredTable[i].Category);
         collectionset.add(filteredRequiredTable[i].Collection);
     }
+    
     var brandset2 = new Set();
     var divisionset2 = new Set();
     var departmentset2 = new Set();
     var categoryset2 = new Set();
     var collectionset2 = new Set();
 
+    //filter styles by whatever attribute you selected IF an attribute is what was changed
     var attributesList = ['dd_color', 'dd_silhouette', 'dd_collectionattri', 'dd_fitcut', 'dd_materialcomposition', 'dd_materialconstruction', 'dd_printtexture', 'dd_productline', 'dd_sleevetype', 'dd_stylecollection', 'dd_subcategory', 'dd_sizegroup', 'dd_origsrp'];
-
-    if (attributesList.includes(excludestring)) {
+    attributesList = new Set(attributesList);
+    if (attributesList.has(excludestring)) {
         var style = document.getElementById('dd_style');
         var stylecode = document.getElementById('dd_stylecode');
         for (let i = 0; i < style.length; i++) {
@@ -318,6 +591,7 @@ function setRequiredFilterTable(excludestring = '') {
         }
     }
 
+    //simply filter by whatever is selected inside organization
     var region = document.getElementById('dd_region');
     var country = document.getElementById('dd_country');
     var channel = document.getElementById('dd_channel');
@@ -418,6 +692,7 @@ function setRequiredFilterTable(excludestring = '') {
             }
         }
     }
+    //if something was selected in organization, intersect it with what is selected in required
     if (brandset2.size >= 1) {
         brandset = brandset.intersection(brandset2);
     }
@@ -433,6 +708,7 @@ function setRequiredFilterTable(excludestring = '') {
     if (collectionset2.size >= 1) {
         collectionset = collectionset.intersection(collectionset2);
     }
+    //do not filter the currently changed select element
     if (excludestring != 'dd_brand') {
         processBrand(brand, brandset);
     }
@@ -465,7 +741,6 @@ function setRequiredFilterTable(excludestring = '') {
     }
 };
 
-
 function setPeriodPlanTable() {
     var periodplan = document.getElementById('dd_periodplans');
     var periodplanset = new Set();
@@ -478,21 +753,21 @@ function setPeriodPlanTable() {
 function buildStylesFilterTable() {
     var brand = document.getElementById('dd_brand');
     var category = document.getElementById('dd_category');
-    //todo, what happens if null category
     var collection = document.getElementById('dd_collection');
     var style = document.getElementById('dd_style');
     var stylecode = document.getElementById('dd_stylecode');
     var division = document.getElementById('dd_division');
     var department = document.getElementById('dd_department');
     let selectedCollections = Array.from(collection.selectedOptions).map(option => option.value);
-    let selectedStyles = Array.from(style.selectedOptions).map(option => option.value);
-    let selectedStyleCodes = Array.from(stylecode.selectedOptions).map(option => option.value);
+    selectedCollections = new Set(selectedCollections)
+   // let selectedStyles = Array.from(style.selectedOptions).map(option => option.value);
+   // let selectedStyleCodes = Array.from(stylecode.selectedOptions).map(option => option.value);
     filteredStylesTable = stylesTable.filter(row =>
         (brand.value == '' || row.Brand == brand.value) &&
         (category.value == '' || row.Category == category.value) &&
         (division.value == '' || row.Division == division.value) &&
         (department.value == '' || row.Department == department.value) &&
-        (selectedCollections.length == 0 || (selectedCollections.length == 1 && selectedCollections[0] == '') || selectedCollections.includes(row.Collection))/*&&
+        (selectedCollections.size == 0 || (selectedCollections.size == 1 && selectedCollections.has('')) || selectedCollections.has(row.Collection))/*&&
         (selectedStyles.length == 0 || (selectedStyles.length == 1 && selectedStyles[0] == '') || selectedStyles.includes(row.Style))&&
         (selectedStyleCodes.length == 0 || (selectedStyleCodes.length == 1 && selectedStyleCodes[0] == '') || selectedStyleCodes.includes(row.Style_Code))*/
     );
@@ -704,11 +979,13 @@ function setStylesFilterTable(excludestring) {
 function buildAttributesFilterTable() {
     var style = document.getElementById('dd_style');
     let selectedValues = Array.from(style.selectedOptions).map(option => option.value);
-    if (selectedValues.length == 0 || (selectedValues.length == 1 && selectedValues[0] == '')) {
+    selectedValues = new Set(selectedValues);
+    if (selectedValues.size == 0 || (selectedValues.size == 1 && selectedValues.has(''))) {
         selectedValues = getColumn(filteredStylesTable, 'Style');
+        selectedValues = new Set(selectedValues);
     }
     filteredAttributesTable = attributesTable.filter(row =>
-        (selectedValues.length == 0 || (selectedValues.length == 1 && selectedValues[0] == '') || selectedValues.includes(row.Style))
+        (selectedValues.size == 0 || (selectedValues.size == 1 && selectedValues.has('')) || selectedValues.has(row.Style))
     );
 };
 
@@ -756,7 +1033,8 @@ function setAttributesFilterTable(element = '') {
         origsrpset.add(filteredAttributesTable[i]['Orig SRP']);
     }
     var attributesList = ['dd_color', 'dd_silhouette', 'dd_collectionattri', 'dd_fitcut', 'dd_materialcomposition', 'dd_materialconstruction', 'dd_printtexture', 'dd_productline', 'dd_sleevetype', 'dd_stylecollection', 'dd_subcategory', 'dd_sizegroup', 'dd_origsrp'];
-    if (element != '' && attributesList.includes(element)) {
+    attributesList = new Set(attributesList);
+    if (element != '' && attributesList.has(element)) {
         var colorset2 = new Set();
         var silhouetteset2 = new Set();
         var collectionattriset2 = new Set();
@@ -916,15 +1194,18 @@ function buildOrganizationFilterTable() {
     var brand = document.getElementById('dd_brand');
     var sitecode = document.getElementById('dd_siteCode');
     let selectedSiteCode = Array.from(sitecode.selectedOptions).map(option => option.value);
+    selectedSiteCode = new Set(selectedSiteCode);
     var sitename = document.getElementById('dd_siteName');
     let selectedSiteName = Array.from(sitename.selectedOptions).map(option => option.value);
+    selectedSiteName = new Set(selectedSiteName);
     var storegrade = document.getElementById('dd_storeGrade');
     let selectedStoreGrade = Array.from(storegrade.selectedOptions).map(option => option.value);
+    selectedStoreGrade = new Set(selectedStoreGrade);
     filteredOrganizationTable = organizationTable.filter(row =>
         (brand.value == '' || row.Brand == brand.value) &&
-        (selectedSiteCode.length == 0 || (selectedSiteCode.length == 1 && selectedSiteCode[0] == '') || selectedSiteCode.includes(row['Site Code'])) &&
-        (selectedSiteName.length == 0 || (selectedSiteName.length == 1 && selectedSiteName[0] == '') || selectedSiteName.includes(row['Site Name'])) &&
-        (selectedStoreGrade.length == 0 || (selectedStoreGrade.length == 1 && selectedStoreGrade[0] == '') || selectedStoreGrade.includes(row['Store Grade']))
+        (selectedSiteCode.size == 0 || (selectedSiteCode.size == 1 && selectedSiteCode.has('')) || selectedSiteCode.has(row['Site Code'])) &&
+        (selectedSiteName.size == 0 || (selectedSiteName.size == 1 && selectedSiteName.has('')) || selectedSiteName.has(row['Site Name'])) &&
+        (selectedStoreGrade.size == 0 || (selectedStoreGrade.size == 1 && selectedStoreGrade.has('')) || selectedStoreGrade.has(row['Store Grade']))
     );
 };
 
@@ -960,7 +1241,8 @@ function setOrganizationFilterTable(element = '') {
         storeGradeset.add(filteredOrganizationTable[i]['Store Grade']);
     }
     var organizationList = ['dd_region', 'dd_country', 'dd_channel', 'dd_territory', 'dd_area', 'dd_outletType', 'dd_siteCode', 'dd_siteName', 'dd_storeGrade'];
-    if (element != '' && organizationList.includes(element)) {
+    organizationList = new Set(organizationList);
+    if (element != '' && organizationList.has(element)) {
         var regionset2 = new Set();
         var countryset2 = new Set();
         var channelset2 = new Set();
@@ -1041,6 +1323,8 @@ function setOrganizationFilterTable(element = '') {
     }
 
 };
+//#endregion
+
 //#region private functions
 function processSelect(element, set) {
     set = new Set([...set].sort());
@@ -1122,6 +1406,7 @@ const getColumn = (anArray, columnName) =>
     anArray.map(row => row[columnName]);
 
 //#endregion
+
 //#region field specific sorting
 
 function processBrand(element, set) {
@@ -1708,13 +1993,17 @@ function getSessionRequiredSavedData() {
     let sessionCategory = document.getElementById('sessionCategory');
     let sessionDepartment = document.getElementById('sessionDepartment');
     let sessionCollection = document.getElementById('sessionCollection').innerHTML.split(',').sort();
+    let sessionPeriodPlan = document.getElementById('sessionPeriodPlan');
 
     var brand = document.getElementById('dd_brand');
     var division = document.getElementById('dd_division');
     var department = document.getElementById('dd_department');
     var category = document.getElementById('dd_category');
     var collection = document.getElementById('dd_collection');
+    let periodplan = document.getElementById('dd_periodplans');
+
     populateSelect(sessionBrand.innerHTML, brand);
+    populateSelect(sessionPeriodPlan.innerHTML, periodplan);
     populateSelect(sessionDivision.innerHTML, division);
     populateSelect(sessionCategory.innerHTML, category);
     populateSelect(sessionDepartment.innerHTML, department);
@@ -1830,7 +2119,7 @@ function populateMultiSelect(list, element) {
 function resizeFilters() {
     let panel = document.getElementById('filters-panel');
     let twocolumnthing = document.getElementById('twocolumnthing');
-    if (panel.clientWidth > 600) {
+    if (panel.clientWidth > 530) {
         panel.style.flexDirection = 'row';
         twocolumnthing.style.flexDirection = 'row';
     }

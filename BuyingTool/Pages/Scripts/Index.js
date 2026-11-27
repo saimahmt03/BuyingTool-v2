@@ -1,4 +1,10 @@
-﻿window.onload = function () {
+﻿async function ShowLoader() {
+    $('#loaderOverlay').css("visibility", "visible");
+}
+async function HideLoader() {
+    $('#loaderOverlay').css("visibility", "hidden");
+}
+window.onload = function () {
     var calculationdone = document.getElementById('calculationdone');
     if (calculationdone.innerHTML != 'true') {
         for (var i = 1; i <= 4; i++) {
@@ -21,9 +27,4 @@
         }
     }
 };
-async function ShowLoader() {
-    $('#loaderOverlay').css("visibility", "visible");
-}
-async function HideLoader() {
-    $('#loaderOverlay').css("visibility", "hidden");
-}
+

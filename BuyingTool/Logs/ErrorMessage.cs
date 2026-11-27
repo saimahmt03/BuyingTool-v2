@@ -13,6 +13,15 @@ namespace BuyingTool.Logs
         public const string Login = "Login. ";
         public const string PasswordReset = "Password Reset. ";
 
+        public const string BrandAuth = "Authorized Brands. ";
+        public const string DivisionAuth = "Authorized Divisions. ";
+        public const string DepartmentAuth = "Authorized Departments. ";
+        public const string RegionAuth = "Authorized Regions. ";
+        public const string CountryAuth = "Authorized Countries. ";
+        public const string ChannelAuth = "Authorized Channels. ";
+        public const string TerritoryAuth = "Authorized Territories. ";
+        public const string AreaAuth = "Authorized Areas. ";
+
         public const string Attribute = "Attribute Filter Region. ";
         public const string Organization = "Organization Filter Region. ";
         public const string Required = "Required Filter Region. ";

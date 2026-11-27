@@ -75,7 +75,59 @@ namespace BuyingTool.Services
         }
 
         #endregion
+        #region authorizations
+        public DataTable GetAuthorizedBrands(string userid)
+        {
+            DataTable result = _dBContext.GetAuthorizedBrands(userid);
 
+            return result;
+        } 
+        public DataTable GetAuthorizedDivisions(string userid)
+        {
+            DataTable result = _dBContext.GetAuthorizedDivisions(userid);
+
+            return result;
+        }
+         public DataTable GetAuthorizedDepartments(string userid)
+        {
+
+            DataTable result = _dBContext.GetAuthorizedDepartments(userid);
+
+            return result;
+        }
+         public DataTable GetAuthorizedRegions(string userid)
+        {
+
+            DataTable result = _dBContext.GetAuthorizedRegions(userid);
+
+            return result;
+        }
+         public DataTable GetAuthorizedCountries(string userid)
+        { 
+            DataTable result = _dBContext.GetAuthorizedCountries(userid);
+
+            return result;
+        }
+         public DataTable GetAuthorizedChannels(string userid)
+        {
+            DataTable result = _dBContext.GetAuthorizedChannels(userid);
+
+            return result;
+        }
+         public DataTable GetAuthorizedTerritories(string userid)
+        {
+            DataTable result = _dBContext.GetAuthorizedTerritories(userid);
+
+            return result;
+        }
+         public DataTable GetAuthorizedAreas(string userid)
+        {
+            DataTable result = _dBContext.GetAuthorizedAreas(userid);
+
+            return result;
+        }
+
+        #endregion
 
         #region Cache Filters
 

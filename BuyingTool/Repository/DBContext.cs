@@ -286,6 +286,394 @@ namespace BuyingTool.Repository
 
         #region FILTERS
 
+        #region authorization
+        public DataTable GetAuthorizedBrands(string idnumber)
+        {
+            var dataTable = new DataTable();
+
+            try
+            {
+                using (DbConnection connection = _databaseConnection.CreateConnection())
+                {
+                    if (connection == null)
+                    {
+                        throw new InvalidOperationException("The database connection could not be created because CreateConnection() returned null.");
+                    }
+
+                    if (connection.State != ConnectionState.Open)
+                    {
+                        connection.Open();
+                    }
+
+                    using (DbCommand command = connection.CreateCommand())
+                    {
+                        command.CommandText = "SELECT distinct Brand FROM [INTERIM_BUYING_TOOL].[dbo].[AuthDim] where userid2 = \'" + idnumber+"\'";
+                        command.CommandType = CommandType.Text;
+
+                        DbProviderFactory factory;
+                        string errorMessage = _databaseConnection.TryGetDbProviderFactory(out factory);
+
+                        if (!string.IsNullOrEmpty(errorMessage))
+                        {
+                            throw new InvalidOperationException(errorMessage);
+                        }
+                        using (DbDataReader reader = command.ExecuteReader())
+                        {
+                            dataTable.Load(reader);
+                        }
+                    }
+                }
+            }
+            catch (DbException ex)
+            {
+                LogHelper.LogError(ErrorMessage.Db + ErrorMessage.BrandAuth, ex);
+            }
+            catch (Exception ex)
+            {
+                LogHelper.LogError(ErrorMessage.Sys + ErrorMessage.BrandAuth, ex);
+            }
+
+            return dataTable;
+        } 
+        public DataTable GetAuthorizedDivisions(string idnumber)
+        {
+            var dataTable = new DataTable();
+
+            try
+            {
+                using (DbConnection connection = _databaseConnection.CreateConnection())
+                {
+                    if (connection == null)
+                    {
+                        throw new InvalidOperationException("The database connection could not be created because CreateConnection() returned null.");
+                    }
+
+                    if (connection.State != ConnectionState.Open)
+                    {
+                        connection.Open();
+                    }
+
+                    using (DbCommand command = connection.CreateCommand())
+                    {
+                        command.CommandText = "SELECT distinct Division FROM [INTERIM_BUYING_TOOL].[dbo].[AuthDim] where userid2 = \'" + idnumber + "\'";
+                        command.CommandType = CommandType.Text;
+
+                        DbProviderFactory factory;
+                        string errorMessage = _databaseConnection.TryGetDbProviderFactory(out factory);
+
+                        if (!string.IsNullOrEmpty(errorMessage))
+                        {
+                            throw new InvalidOperationException(errorMessage);
+                        }
+                        using (DbDataReader reader = command.ExecuteReader())
+                        {
+                            dataTable.Load(reader);
+                        }
+                    }
+                }
+            }
+            catch (DbException ex)
+            {
+                LogHelper.LogError(ErrorMessage.Db + ErrorMessage.DivisionAuth, ex);
+            }
+            catch (Exception ex)
+            {
+                LogHelper.LogError(ErrorMessage.Sys + ErrorMessage.DivisionAuth, ex);
+            }
+
+            return dataTable;
+        }
+        public DataTable GetAuthorizedDepartments(string idnumber)
+        {
+            var dataTable = new DataTable();
+
+            try
+            {
+                using (DbConnection connection = _databaseConnection.CreateConnection())
+                {
+                    if (connection == null)
+                    {
+                        throw new InvalidOperationException("The database connection could not be created because CreateConnection() returned null.");
+                    }
+
+                    if (connection.State != ConnectionState.Open)
+                    {
+                        connection.Open();
+                    }
+
+                    using (DbCommand command = connection.CreateCommand())
+                    {
+                        command.CommandText = "SELECT distinct Department FROM [INTERIM_BUYING_TOOL].[dbo].[AuthDim] where userid2 = \'" + idnumber + "\'";
+                        command.CommandType = CommandType.Text;
+
+                        DbProviderFactory factory;
+                        string errorMessage = _databaseConnection.TryGetDbProviderFactory(out factory);
+
+                        if (!string.IsNullOrEmpty(errorMessage))
+                        {
+                            throw new InvalidOperationException(errorMessage);
+                        }
+                        using (DbDataReader reader = command.ExecuteReader())
+                        {
+                            dataTable.Load(reader);
+                        }
+                    }
+                }
+            }
+            catch (DbException ex)
+            {
+                LogHelper.LogError(ErrorMessage.Db + ErrorMessage.DepartmentAuth, ex);
+            }
+            catch (Exception ex)
+            {
+                LogHelper.LogError(ErrorMessage.Sys + ErrorMessage.DepartmentAuth, ex);
+            }
+
+            return dataTable;
+        }
+        public DataTable GetAuthorizedRegions(string idnumber)
+        {
+            var dataTable = new DataTable();
+
+            try
+            {
+                using (DbConnection connection = _databaseConnection.CreateConnection())
+                {
+                    if (connection == null)
+                    {
+                        throw new InvalidOperationException("The database connection could not be created because CreateConnection() returned null.");
+                    }
+
+                    if (connection.State != ConnectionState.Open)
+                    {
+                        connection.Open();
+                    }
+
+                    using (DbCommand command = connection.CreateCommand())
+                    {
+                        command.CommandText = "SELECT distinct Region FROM [INTERIM_BUYING_TOOL].[dbo].[AuthDim] where userid2 = \'" + idnumber + "\'";
+                        command.CommandType = CommandType.Text;
+
+                        DbProviderFactory factory;
+                        string errorMessage = _databaseConnection.TryGetDbProviderFactory(out factory);
+
+                        if (!string.IsNullOrEmpty(errorMessage))
+                        {
+                            throw new InvalidOperationException(errorMessage);
+                        }
+                        using (DbDataReader reader = command.ExecuteReader())
+                        {
+                            dataTable.Load(reader);
+                        }
+                    }
+                }
+            }
+            catch (DbException ex)
+            {
+                LogHelper.LogError(ErrorMessage.Db + ErrorMessage.RegionAuth, ex);
+            }
+            catch (Exception ex)
+            {
+                LogHelper.LogError(ErrorMessage.Sys + ErrorMessage.RegionAuth, ex);
+            }
+
+            return dataTable;
+        }
+        public DataTable GetAuthorizedCountries(string idnumber)
+        {
+            var dataTable = new DataTable();
+
+            try
+            {
+                using (DbConnection connection = _databaseConnection.CreateConnection())
+                {
+                    if (connection == null)
+                    {
+                        throw new InvalidOperationException("The database connection could not be created because CreateConnection() returned null.");
+                    }
+
+                    if (connection.State != ConnectionState.Open)
+                    {
+                        connection.Open();
+                    }
+
+                    using (DbCommand command = connection.CreateCommand())
+                    {
+                        command.CommandText = "SELECT distinct Country FROM [INTERIM_BUYING_TOOL].[dbo].[AuthDim] where userid2 = \'" + idnumber + "\'";
+                        command.CommandType = CommandType.Text;
+
+                        DbProviderFactory factory;
+                        string errorMessage = _databaseConnection.TryGetDbProviderFactory(out factory);
+
+                        if (!string.IsNullOrEmpty(errorMessage))
+                        {
+                            throw new InvalidOperationException(errorMessage);
+                        }
+                        using (DbDataReader reader = command.ExecuteReader())
+                        {
+                            dataTable.Load(reader);
+                        }
+                    }
+                }
+            }
+            catch (DbException ex)
+            {
+                LogHelper.LogError(ErrorMessage.Db + ErrorMessage.CountryAuth, ex);
+            }
+            catch (Exception ex)
+            {
+                LogHelper.LogError(ErrorMessage.Sys + ErrorMessage.CountryAuth, ex);
+            }
+
+            return dataTable;
+        }
+        public DataTable GetAuthorizedChannels(string idnumber)
+        {
+            var dataTable = new DataTable();
+
+            try
+            {
+                using (DbConnection connection = _databaseConnection.CreateConnection())
+                {
+                    if (connection == null)
+                    {
+                        throw new InvalidOperationException("The database connection could not be created because CreateConnection() returned null.");
+                    }
+
+                    if (connection.State != ConnectionState.Open)
+                    {
+                        connection.Open();
+                    }
+
+                    using (DbCommand command = connection.CreateCommand())
+                    {
+                        command.CommandText = "SELECT distinct Channel FROM [INTERIM_BUYING_TOOL].[dbo].[AuthDim] where userid2 = \'" + idnumber + "\'";
+                        command.CommandType = CommandType.Text;
+
+                        DbProviderFactory factory;
+                        string errorMessage = _databaseConnection.TryGetDbProviderFactory(out factory);
+
+                        if (!string.IsNullOrEmpty(errorMessage))
+                        {
+                            throw new InvalidOperationException(errorMessage);
+                        }
+                        using (DbDataReader reader = command.ExecuteReader())
+                        {
+                            dataTable.Load(reader);
+                        }
+                    }
+                }
+            }
+            catch (DbException ex)
+            {
+                LogHelper.LogError(ErrorMessage.Db + ErrorMessage.ChannelAuth, ex);
+            }
+            catch (Exception ex)
+            {
+                LogHelper.LogError(ErrorMessage.Sys + ErrorMessage.ChannelAuth, ex);
+            }
+
+            return dataTable;
+        }
+        public DataTable GetAuthorizedTerritories(string idnumber)
+        {
+            var dataTable = new DataTable();
+
+            try
+            {
+                using (DbConnection connection = _databaseConnection.CreateConnection())
+                {
+                    if (connection == null)
+                    {
+                        throw new InvalidOperationException("The database connection could not be created because CreateConnection() returned null.");
+                    }
+
+                    if (connection.State != ConnectionState.Open)
+                    {
+                        connection.Open();
+                    }
+
+                    using (DbCommand command = connection.CreateCommand())
+                    {
+                        command.CommandText = "SELECT distinct Territory FROM [INTERIM_BUYING_TOOL].[dbo].[AuthDim] where userid2 = \'" + idnumber + "\'";
+                        command.CommandType = CommandType.Text;
+
+                        DbProviderFactory factory;
+                        string errorMessage = _databaseConnection.TryGetDbProviderFactory(out factory);
+
+                        if (!string.IsNullOrEmpty(errorMessage))
+                        {
+                            throw new InvalidOperationException(errorMessage);
+                        }
+                        using (DbDataReader reader = command.ExecuteReader())
+                        {
+                            dataTable.Load(reader);
+                        }
+                    }
+                }
+            }
+            catch (DbException ex)
+            {
+                LogHelper.LogError(ErrorMessage.Db + ErrorMessage.TerritoryAuth, ex);
+            }
+            catch (Exception ex)
+            {
+                LogHelper.LogError(ErrorMessage.Sys + ErrorMessage.TerritoryAuth, ex);
+            }
+
+            return dataTable;
+        }
+        public DataTable GetAuthorizedAreas(string idnumber)
+        {
+            var dataTable = new DataTable();
+
+            try
+            {
+                using (DbConnection connection = _databaseConnection.CreateConnection())
+                {
+                    if (connection == null)
+                    {
+                        throw new InvalidOperationException("The database connection could not be created because CreateConnection() returned null.");
+                    }
+
+                    if (connection.State != ConnectionState.Open)
+                    {
+                        connection.Open();
+                    }
+
+                    using (DbCommand command = connection.CreateCommand())
+                    {
+                        command.CommandText = "SELECT distinct Area FROM [INTERIM_BUYING_TOOL].[dbo].[AuthDim] where userid2 = \'" + idnumber + "\'";
+                        command.CommandType = CommandType.Text;
+
+                        DbProviderFactory factory;
+                        string errorMessage = _databaseConnection.TryGetDbProviderFactory(out factory);
+
+                        if (!string.IsNullOrEmpty(errorMessage))
+                        {
+                            throw new InvalidOperationException(errorMessage);
+                        }
+                        using (DbDataReader reader = command.ExecuteReader())
+                        {
+                            dataTable.Load(reader);
+                        }
+                    }
+                }
+            }
+            catch (DbException ex)
+            {
+                LogHelper.LogError(ErrorMessage.Db + ErrorMessage.AreaAuth, ex);
+            }
+            catch (Exception ex)
+            {
+                LogHelper.LogError(ErrorMessage.Sys + ErrorMessage.AreaAuth, ex);
+            }
+
+            return dataTable;
+        }
+
+        #endregion
+
         // ATTRIBUTE REGION FILTER
         public Task<DataTable> GetFiltersAttribute(string idnumber)
         {

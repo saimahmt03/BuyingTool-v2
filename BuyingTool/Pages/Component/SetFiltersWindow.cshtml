@@ -416,6 +416,9 @@
             Session.Remove("SubCategory");
             Session.Remove("SizeGroup");
             Session.Remove("OrigSrp");
+
+            Session.Remove("DisplayDone");
+
             SavedSessionFilters savedSessionFilters = new SavedSessionFilters();
             savedSessionFilters.UserID = Session["idnumber"].ToString();
             savedSessionFilters.DateUpdated = DateTime.Now;
@@ -449,7 +452,6 @@
             savedSessionFilters.SizeGroup = "";
             savedSessionFilters.OrigSrp = "";
             service.SaveSessionFiltersDB(Session["idnumber"].ToString(), savedSessionFilters);
-            Session["DisplayDone"] = null;
 
         }
     }
