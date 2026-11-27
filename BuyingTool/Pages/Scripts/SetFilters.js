@@ -323,14 +323,14 @@ $(document).ready(function () {
         initialFilter();
         setValueIfOnlyOneIsAccessible();
 
-        //builds static tables
+        //builds filters tables based only on what is selected within the same category
         buildRequiredFilterTable();
         buildStylesFilterTable();
         buildAttributesFilterTable();
         buildOrganizationFilterTable();
 
 
-        //builds filtertables based on static tables
+        //sets contents of selections filtered by selections on other categories
         setRequiredFilterTable();
         setStylesFilterTable();
         setAttributesFilterTable();
