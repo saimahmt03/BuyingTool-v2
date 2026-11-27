@@ -61,7 +61,7 @@ header {
     border-radius: 15px;
 }
 .overflow-handler{
-    width:fit-content;
+    width:100%;
     overflow-x:auto;
 }
 /* Responsive Table Scroll Container */
